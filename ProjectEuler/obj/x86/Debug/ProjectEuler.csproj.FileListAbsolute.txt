@@ -1,0 +1,4 @@
+\\napier-mail.napier.ac.uk\students\school of computing\user data\40329070\visual studio 2010\Projects\ProjectEuler\ProjectEuler\bin\Debug\ProjectEuler.exe
+\\napier-mail.napier.ac.uk\students\school of computing\user data\40329070\visual studio 2010\Projects\ProjectEuler\ProjectEuler\bin\Debug\ProjectEuler.pdb
+\\napier-mail.napier.ac.uk\students\school of computing\user data\40329070\visual studio 2010\Projects\ProjectEuler\ProjectEuler\obj\x86\Debug\ProjectEuler.exe
+\\napier-mail.napier.ac.uk\students\school of computing\user data\40329070\visual studio 2010\Projects\ProjectEuler\ProjectEuler\obj\x86\Debug\ProjectEuler.pdb
