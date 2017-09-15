@@ -78,6 +78,15 @@ namespace ProjectEuler
 
 
 
+        public void problem4() {
+        
+
+
+
+        }
+
+
+
 
 
 
