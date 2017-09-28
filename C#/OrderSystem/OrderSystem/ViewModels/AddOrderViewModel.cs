@@ -16,7 +16,9 @@ namespace OrderSystem.ViewModels
         #endregion
 
         #region TextBox Content
-
+        public string ItemNameTextBox { get; set; }
+        public string ItemPriceTextBox { get; set; }
+        
         #endregion
 
 
