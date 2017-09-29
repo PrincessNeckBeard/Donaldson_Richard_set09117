@@ -1,0 +1,18 @@
+package hashmap;
+
+
+import java.util.*;
+
+
+
+
+public class HashMap {
+	
+	public void build() {
+		HashMap<String, String> map = new HashMap<String,String>();
+	}
+	
+	
+	
+
+}
