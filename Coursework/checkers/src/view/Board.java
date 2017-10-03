@@ -18,7 +18,12 @@ import javax.swing.JComponent;
 import java.awt.GridBagLayout;
 
 import controller.*;
-import model.*;
+import model.Checker;
+
+import javax.swing.JLabel;
+import java.awt.GridBagConstraints;
+import javax.swing.JPanel;
+import java.awt.Insets;
 
 
 
@@ -60,11 +65,20 @@ public class Board extends JComponent
    public Board()
    {
    	GridBagLayout gridBagLayout = new GridBagLayout();
-   	gridBagLayout.columnWidths = new int[]{0};
-   	gridBagLayout.rowHeights = new int[]{0};
-   	gridBagLayout.columnWeights = new double[]{Double.MIN_VALUE};
-   	gridBagLayout.rowWeights = new double[]{Double.MIN_VALUE};
+   	gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+   	gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+   	gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+   	gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
    	setLayout(gridBagLayout);
+   	
+   	JPanel panel = new JPanel();
+   	GridBagConstraints gbc_panel = new GridBagConstraints();
+   	gbc_panel.gridheight = 8;
+   	gbc_panel.insets = new Insets(0, 0, 5, 0);
+   	gbc_panel.fill = GridBagConstraints.BOTH;
+   	gbc_panel.gridx = 18;
+   	gbc_panel.gridy = 0;
+   	add(panel, gbc_panel);
       posChecks = new ArrayList<>();
       dimPrefSize = new Dimension(BOARDDIM, BOARDDIM);
 
