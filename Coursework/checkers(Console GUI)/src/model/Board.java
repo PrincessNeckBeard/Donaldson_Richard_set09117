@@ -5,7 +5,7 @@ import controller.Enumerations.CellEntry;
 
 import java.util.*;
 
-public class Board {
+public class Board {	
 
 	int blackPieces;
 	int whitePieces;
@@ -18,26 +18,39 @@ public class Board {
 		this.blackPieces = 12;
 		this.whitePieces = 12;
 		
-		this.cell = new CellEntry[][] {
-			 {CellEntry.white, CellEntry.inValid, CellEntry.white, CellEntry.inValid, CellEntry.white, CellEntry.inValid, CellEntry.white, CellEntry.inValid},
-	            {CellEntry.inValid, CellEntry.white, CellEntry.inValid, CellEntry.white, CellEntry.inValid, CellEntry.white, CellEntry.inValid, CellEntry.white},
-	            {CellEntry.white, CellEntry.inValid, CellEntry.white, CellEntry.inValid, CellEntry.white, CellEntry.inValid, CellEntry.white, CellEntry.inValid},
-	            {CellEntry.inValid, CellEntry.empty, CellEntry.inValid, CellEntry.empty, CellEntry.inValid, CellEntry.empty, CellEntry.inValid, CellEntry.empty},
-	            {CellEntry.empty, CellEntry.inValid, CellEntry.empty, CellEntry.inValid, CellEntry.empty, CellEntry.inValid, CellEntry.empty, CellEntry.inValid},            
-	            {CellEntry.inValid, CellEntry.black, CellEntry.inValid, CellEntry.black, CellEntry.inValid, CellEntry.black, CellEntry.inValid, CellEntry.black},
-	            {CellEntry.black,CellEntry.inValid, CellEntry.black, CellEntry.inValid, CellEntry.black, CellEntry.inValid, CellEntry.black, CellEntry.inValid},
-	            {CellEntry.inValid, CellEntry.black, CellEntry.inValid, CellEntry.black, CellEntry.inValid, CellEntry.black, CellEntry.inValid, CellEntry.black}
-		};
+	//int[rows][columns]
+		int[][] board;
+				
+				
+		}
+				
 		
 		
 		
 		
 		
-		
-		
+	
+	
+	
+	public void drawBoard() {
+		System.out.println("  ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗");
+        System.out.println("  ║   ║░░░║   ║░░░║   ║░░░║   ║░░░║");
+        System.out.println("  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣");
+        System.out.println("  ║░░░║   ║░░░║   ║░░░║   ║░░░║   ║");
+        System.out.println("  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣");
+        System.out.println("  ║   ║░░░║   ║░░░║   ║░░░║   ║░░░║");
+        System.out.println("  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣");
+        System.out.println("  ║░░░║   ║░░░║   ║░░░║   ║░░░║   ║");
+        System.out.println("  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣");
+        System.out.println("  ║   ║░░░║   ║░░░║   ║░░░║   ║░░░║");
+        System.out.println("  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣");
+        System.out.println("  ║░░░║   ║░░░║   ║░░░║   ║░░░║   ║");
+        System.out.println("  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣");
+        System.out.println("  ║   ║░░░║   ║░░░║   ║░░░║   ║░░░║");
+        System.out.println("  ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣");
+        System.out.println("  ║░░░║   ║░░░║   ║░░░║   ║░░░║   ║");
+        System.out.println("  ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝");
 	}
-	
-	
 	
 	
 	
