@@ -20,7 +20,10 @@ public class Board {
 		
 	//int[rows][columns]
 		int[][] board;
-				
+			
+		
+		
+		
 				
 		}
 				
