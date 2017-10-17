@@ -12,10 +12,6 @@ public class Game {
 	static Scanner keyboard = new Scanner(System.in);
 	static ArrayList<String> moves = new ArrayList<String>();
 	
-	Game() {
-
-		
-	}
 	
 	public static void printBoard(int[][] board) {
 	
@@ -83,10 +79,10 @@ public class Game {
 		System.out.println("xIsLetter in validate method is: " + xIsLetter);
 		
 		if((!input.isEmpty()) || (!xIsLetter)) {
-			System.out.println("returning false");
+			System.out.println("returning false in validate");
 			return false;
 		} else {
-			System.out.println("returning true");
+			System.out.println("returning true in validate");
 			return true;
 		}
 		
@@ -95,6 +91,29 @@ public class Game {
 		
 		
 	}
+	
+	public static void printList() {
+		System.out.println("Printing list");
+		for(String m: moves) {
+			System.out.println(m);
+		}
+	}
+	
+	
+	
+	
+	public static void undo(int[][] board) {
+		printList();
+		System.out.println("Undo");
+		
+		
+	}
+	
+	public static void redo(int[][] board) {
+		
+	}
+	
+	
 	
 	
 	
@@ -164,10 +183,7 @@ public class Game {
 		//board[convertedXMove][yMove] = 1;
 		moves.add(yMove + ", " + convertedXMove);
 		
-		System.out.println("Printing list");
-		for(String m: moves) {
-			System.out.println(m);
-		}
+		
 		
 	
 	}
@@ -193,11 +209,18 @@ public class Game {
 			{2, 0, 2, 0, 2, 0, 2, 0 }
 		};
 		
-		printBoard(board);
-		movePiece(board);
-		printBoard(board);
-		movePiece(board);
-		keyboard.close();
+		//printBoard(board);
+		//movePiece(board);
+		//printList();
+		//printBoard(board);
+		//movePiece(board);
+		//printList();
+		//keyboard.close();
+		moves.add("1, 2");
+		moves.add("3, 4");
+		moves.add("5, 6");
+		moves.add("7, 8");
+		printList();
 	}
 	
 	
