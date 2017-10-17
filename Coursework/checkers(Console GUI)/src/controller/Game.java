@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import model.Board;
@@ -9,7 +10,7 @@ import view.View;
 public class Game {
 
 	static Scanner keyboard = new Scanner(System.in);
-	static List moves = new List();
+	static ArrayList<String> moves = new ArrayList<String>();
 	
 	Game() {
 
@@ -152,17 +153,23 @@ public class Game {
 		
 		System.out.println("convertedXMove is: " + convertedXMove);
 		
-		
+		yOrigin -= 1;
+		yMove -= 1;
 		
 		System.out.println("Origin: " + yOrigin + ", " + convertedXOrigin);
 		System.out.println("Move: " + yMove + ", " + convertedXMove);
-		board[yOrigin - 1][convertedXOrigin] = 0;
-		board[yMove - 1][convertedXMove] = 1;
+		board[yOrigin][convertedXOrigin] = 0;
+		board[yMove][convertedXMove] = 1;
 		//board[convertedXOrigin][yOrigin] = 0;
 		//board[convertedXMove][yMove] = 1;
-		moves.add()
+		moves.add(yMove + ", " + convertedXMove);
 		
+		System.out.println("Printing list");
+		for(String m: moves) {
+			System.out.println(m);
+		}
 		
+	
 	}
 	
 	
