@@ -100,11 +100,26 @@ public class Game {
 	}
 	
 	
-	
+	//What I'm thinking is having two Lists, one that has all the moves, 
+	//and then one that copies the move that has been undid into the new list
+	//so that if redo is added then they can just work between both lists
 	
 	public static void undo(int[][] board) {
-		printList();
-		System.out.println("Undo");
+		
+		//this works, but if I'm going to be using two lists, this will have to
+		//be re done, but at least it works! 
+		
+		int i = (moves.size() - 1);
+		
+			System.out.println("The last move played was " + moves.get(i));
+			System.out.println("Undo");
+			System.out.println("Undid move: " + moves.get(i));
+			i--;
+			System.out.println("confirm? dummy answer no - undo again" );
+			System.out.println("Undid move 2: " + moves.get(i));
+			i--;
+		
+		
 		
 		
 	}
@@ -221,6 +236,7 @@ public class Game {
 		moves.add("5, 6");
 		moves.add("7, 8");
 		printList();
+		undo(board);
 	}
 	
 	
