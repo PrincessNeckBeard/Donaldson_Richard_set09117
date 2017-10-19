@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import model.Board;
+import model.Move;
 import view.View;
+import controller.GameHistory;
+
 
 public class Game {
 
 	static Scanner keyboard = new Scanner(System.in);
-	static ArrayList<String> moves = new ArrayList<String>();
+
 	
 	
 	public static void printBoard(int[][] board) {
@@ -75,7 +78,9 @@ public class Game {
 		System.out.println("xInput in Validate method is: " + xInput);
 		int yInput = Integer.parseInt(input.substring(1,2));
 		System.out.println("yInput in Validate method is: " + yInput);
-		boolean xIsLetter = xInput.chars().allMatch(Character::isLetter);
+		
+		boolean xIsLetter = Character.isLetter(xInput.charAt(0));
+		
 		System.out.println("xIsLetter in validate method is: " + xIsLetter);
 		
 		if((!input.isEmpty()) || (!xIsLetter)) {
@@ -94,8 +99,8 @@ public class Game {
 	
 	public static void printList() {
 		System.out.println("Printing list");
-		for(String m: moves) {
-			System.out.println(m);
+		for(Move m: GameHistory.moves) {
+			System.out.println(m.toString());
 		}
 	}
 	
@@ -109,14 +114,16 @@ public class Game {
 		//this works, but if I'm going to be using two lists, this will have to
 		//be re done, but at least it works! 
 		
-		int i = (moves.size() - 1);
+		int i = (GameHistory.moves.size() - 1);
 		
-			System.out.println("The last move played was " + moves.get(i));
+			System.out.println("The last move played was " + GameHistory.moves.get(i));
 			System.out.println("Undo");
-			System.out.println("Undid move: " + moves.get(i));
+			System.out.println("Undid move: " + GameHistory.moves.get(i));
+			GameHistory.moves.remove(i);
 			i--;
 			System.out.println("confirm? dummy answer no - undo again" );
-			System.out.println("Undid move 2: " + moves.get(i));
+			System.out.println("Undid move 2: " + GameHistory.moves.get(i));
+			GameHistory.moves.remove(i);
 			i--;
 		
 		
@@ -196,8 +203,9 @@ public class Game {
 		board[yMove][convertedXMove] = 1;
 		//board[convertedXOrigin][yOrigin] = 0;
 		//board[convertedXMove][yMove] = 1;
-		moves.add(yMove + ", " + convertedXMove);
-		
+		Move asda1 = new Move(convertedXOrigin, yOrigin, convertedXMove, yMove);
+		GameHistory.moves.add(asda1);
+		//yMove + ", " + convertedXMove
 		
 		
 	
@@ -224,19 +232,34 @@ public class Game {
 			{2, 0, 2, 0, 2, 0, 2, 0 }
 		};
 		
-		//printBoard(board);
-		//movePiece(board);
-		//printList();
-		//printBoard(board);
-		//movePiece(board);
-		//printList();
-		//keyboard.close();
-		moves.add("1, 2");
-		moves.add("3, 4");
-		moves.add("5, 6");
-		moves.add("7, 8");
+		
+//		printBoard(board);
+//		movePiece(board);
+//		//printBoard(board);
+//		//movePiece(board);
+//		printList();
+//		keyboard.close();
+		
+		
+		
+//		printBoard(board);
+//		movePiece(board);	
+//		printList();
+//		printBoard(board);
+//		movePiece(board);
+//		printList();
+//		keyboard.close();
+		Move asda1 = new Move(1, 2, 3, 4);
+		Move asda2 = new Move(5, 6, 7, 8);
+		Move asda3 = new Move(9, 10, 11, 12);
+		Move asda4 = new Move(13, 14, 15, 16);
+		GameHistory.moves.add(asda1);
+		GameHistory.moves.add(asda2);
+		GameHistory.moves.add(asda3);
+		GameHistory.moves.add(asda4);
 		printList();
 		undo(board);
+		printList();
 	}
 	
 	
