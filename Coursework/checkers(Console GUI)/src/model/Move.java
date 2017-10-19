@@ -2,11 +2,11 @@ package model;
 
 public class Move {
 
-	int xOrigin;
-	int yOrigin;
+	static int xOrigin;
+	static int yOrigin;
 	
-	int xMove;
-	int yMove;
+	static int xMove;
+	static int yMove;
 	
 //	Checker checker;
 
@@ -18,43 +18,43 @@ public class Move {
 	
 	public Move(int xOrigin, int yOrigin, int xMove, int yMove) {
 		super();
-		this.xOrigin = xOrigin;
-		this.yOrigin = yOrigin;
-		this.xMove = xMove;
-		this.yMove = yMove;
+		Move.xOrigin = xOrigin;
+		Move.yOrigin = yOrigin;
+		Move.xMove = xMove;
+		Move.yMove = yMove;
 	//	this.checker = checker;
 	}
 
-	public int getxOrigin() {
+	public static int getxOrigin() {
 		return xOrigin;
 	}
 
 	public void setxOrigin(int xOrigin) {
-		this.xOrigin = xOrigin;
+		Move.xOrigin = xOrigin;
 	}
 
-	public int getyOrigin() {
+	public static int getyOrigin() {
 		return yOrigin;
 	}
 
 	public void setyOrigin(int yOrigin) {
-		this.yOrigin = yOrigin;
+		Move.yOrigin = yOrigin;
 	}
 
-	public int getxMove() {
+	public static int getxMove() {
 		return xMove;
 	}
 
 	public void setxMove(int xMove) {
-		this.xMove = xMove;
+		Move.xMove = xMove;
 	}
 
-	public int getyMove() {
+	public static int getyMove() {
 		return yMove;
 	}
 
 	public void setyMove(int yMove) {
-		this.yMove = yMove;
+		Move.yMove = yMove;
 	}
 
 	@Override

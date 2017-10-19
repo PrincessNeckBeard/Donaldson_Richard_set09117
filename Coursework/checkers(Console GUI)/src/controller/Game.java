@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.List;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import model.Board;
@@ -113,18 +114,45 @@ public class Game {
 		
 		//this works, but if I'm going to be using two lists, this will have to
 		//be re done, but at least it works! 
+		System.out.println("Copying moves into copy");
+		GameHistory.copy =  GameHistory.moves.clone();
+		System.out.println("Outputting Copy");
+		System.out.println(GameHistory.copy);
+		System.out.println("End of output \n");
+		
 		
 		int i = (GameHistory.moves.size() - 1);
+		System.out.println("The last move played was " + GameHistory.moves.get(i));
 		
-			System.out.println("The last move played was " + GameHistory.moves.get(i));
-			System.out.println("Undo");
-			System.out.println("Undid move: " + GameHistory.moves.get(i));
+		board[Move.getyMove()][Move.getxMove()] = 0;
+		board[Move.getyOrigin()][Move.getxOrigin()] = 1;
+		
+
+			System.out.println("C has been pressed, removing Move");
 			GameHistory.moves.remove(i);
-			i--;
-			System.out.println("confirm? dummy answer no - undo again" );
-			System.out.println("Undid move 2: " + GameHistory.moves.get(i));
-			GameHistory.moves.remove(i);
-			i--;
+		
+		
+		//board[GameHistory.moves.getOrigin][convertedXOrigin] = 0;
+		//board[yMove][convertedXMove] = 1;
+		
+		
+		
+		
+		
+		
+		
+//		int i = (GameHistory.moves.size() - 1);
+//		
+//			System.out.println("The last move played was " + GameHistory.moves.get(i));
+//			System.out.println("Undo");
+//			System.out.println("Undid move: " + GameHistory.moves.get(i));
+//			GameHistory.moves.remove(i);
+//			i--;
+		
+			
+			
+			
+			
 		
 		
 		
@@ -142,6 +170,8 @@ public class Game {
 	//once this is working, see about creating a seperate class to do this
 	//so that the conversion for the origin value and move value can be returned
 	//at the same time
+	
+	
 	public static void movePiece(int[][] board) {
 		boolean error = false;
 		String origin;
@@ -201,10 +231,13 @@ public class Game {
 		System.out.println("Move: " + yMove + ", " + convertedXMove);
 		board[yOrigin][convertedXOrigin] = 0;
 		board[yMove][convertedXMove] = 1;
+		
 		//board[convertedXOrigin][yOrigin] = 0;
 		//board[convertedXMove][yMove] = 1;
 		Move asda1 = new Move(convertedXOrigin, yOrigin, convertedXMove, yMove);
 		GameHistory.moves.add(asda1);
+		
+		
 		//yMove + ", " + convertedXMove
 		
 		
@@ -249,17 +282,33 @@ public class Game {
 //		movePiece(board);
 //		printList();
 //		keyboard.close();
-		Move asda1 = new Move(1, 2, 3, 4);
-		Move asda2 = new Move(5, 6, 7, 8);
-		Move asda3 = new Move(9, 10, 11, 12);
-		Move asda4 = new Move(13, 14, 15, 16);
-		GameHistory.moves.add(asda1);
-		GameHistory.moves.add(asda2);
-		GameHistory.moves.add(asda3);
-		GameHistory.moves.add(asda4);
+		//Move asda1 = new Move(1, 2, 3, 4);
+		//Move asda2 = new Move(5, 6, 7, 8);
+		//Move asda3 = new Move(9, 10, 11, 12);
+		//Move asda4 = new Move(13, 14, 15, 16);
+		//GameHistory.moves.add(asda1);
+		//GameHistory.moves.add(asda2);
+		//GameHistory.moves.add(asda3);
+		//GameHistory.moves.add(asda4);
+		printBoard(board);
+		movePiece(board);
+		printBoard(board);
+		movePiece(board);
+		printBoard(board);
 		printList();
 		undo(board);
+		printBoard(board);
+		undo(board);
+		printBoard(board);
 		printList();
+		
+//		
+//		printList();
+//		undo(board);
+//		printList();
+//	
+		
+	
 	}
 	
 	
