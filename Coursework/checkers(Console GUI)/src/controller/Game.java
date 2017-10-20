@@ -123,9 +123,15 @@ public class Game {
 		
 		int i = (GameHistory.moves.size() - 1);
 		System.out.println("The last move played was " + GameHistory.moves.get(i));
+		Move test = GameHistory.moves.get(i);
 		
-		board[Move.getyMove()][Move.getxMove()] = 0;
-		board[Move.getyOrigin()][Move.getxOrigin()] = 1;
+		System.out.println("Move.getyMove: " + test.getyMove());
+		System.out.println("Move.getxMove: " + test.getxMove());
+		System.out.println("Move.getyOrigin: " + test.getyOrigin());
+		System.out.println("Move.getxOrigin: " + test.getxOrigin());
+		
+		board[test.getyMove()][test.getxMove()] = 0;
+		board[test.getyOrigin()][test.getxOrigin()] = 1;
 		
 
 			System.out.println("C has been pressed, removing Move");
@@ -205,7 +211,6 @@ public class Game {
 		} while(error);
 		
 		
-		
 		String xOrigin = origin.substring(0, 1);
 		System.out.println("XOrigin is: " + xOrigin);
 		int yOrigin = Integer.parseInt(origin.substring(1,2));
@@ -227,6 +232,7 @@ public class Game {
 		yOrigin -= 1;
 		yMove -= 1;
 		
+		
 		System.out.println("Origin: " + yOrigin + ", " + convertedXOrigin);
 		System.out.println("Move: " + yMove + ", " + convertedXMove);
 		board[yOrigin][convertedXOrigin] = 0;
@@ -234,8 +240,11 @@ public class Game {
 		
 		//board[convertedXOrigin][yOrigin] = 0;
 		//board[convertedXMove][yMove] = 1;
+		System.out.println("DANIEL1 - " + GameHistory.moves.toString());
 		Move asda1 = new Move(convertedXOrigin, yOrigin, convertedXMove, yMove);
+		System.out.println("DANIEL2 - " + GameHistory.moves.toString());
 		GameHistory.moves.add(asda1);
+	//	System.out.println("DANIEL - " + GameHistory.moves.toString());
 		
 		
 		//yMove + ", " + convertedXMove
@@ -292,10 +301,12 @@ public class Game {
 		//GameHistory.moves.add(asda4);
 		printBoard(board);
 		movePiece(board);
+		printList();
 		printBoard(board);
 		movePiece(board);
 		printBoard(board);
 		printList();
+		movePiece(board);
 		undo(board);
 		printBoard(board);
 		undo(board);
