@@ -2,6 +2,8 @@ package controller;
 
 import java.util.Scanner;
 
+import model.Checker;
+import model.Model;
 import model.Move;
 
 
@@ -92,32 +94,49 @@ public class Game {
 		
 	}
 	
+	
+	//TODO
+	//Add in checker class to validation, so that it gets the piece in question
+	//Validates that it still exists and then further validates if it can move
+	//to where the input is
+	
+	//TODO
+	
+	// Will have to add in updating the position of the checker objects before 
+	//being able to work on validation
+	//as the way I plan on coding uses the classes as part of it
+	
+	
+	
 	//Game Logic
 	//Checks to see if the move is legal or not
-	private static void validateMove(int[][] board, int xValue, int yValue, boolean isBlackTurn) {
+	private Checker validatePiece(int[][] board, int xValue, int yValue) {
 		System.out.println("xValue: " + xValue);
 		System.out.println("yValue: " + yValue);
 		System.out.println("piece value: " + board[yValue][xValue]);
-		
-		
-		
-		
+	
 			//Checks to see if the piece is a Black piece (either 1 or 3)
 			if(board[yValue][xValue] == 0) {
 				System.out.println("Space selected is empty - please try again");
 			} else if (board[yValue][xValue] % 2 != 0) {
 				System.out.println("Piece is black");
+				Checker selectedPiece = Model.blackPieces.get();
 			} else {
 				System.out.println("Piece is white");
 			}
-		
-		
-		
-		
-		
+	
+			
+			
+			
 	}
 	
+public static void validateMove(int[][] board, int xInput, int yInput, boolean isBlackTurn) {
 	
+	
+	
+	
+	
+}
 	
 	
 	
@@ -311,7 +330,7 @@ public class Game {
 		moveThroughList(board);
 		*/
 		
-		validateMove(board, 2, 7, true);
+		validatePiece(board, 2, 7);
 		
 
 
