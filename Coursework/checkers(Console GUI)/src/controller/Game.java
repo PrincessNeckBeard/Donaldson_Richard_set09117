@@ -31,6 +31,7 @@ public class Game {
 		System.out.println();
 	}
 	
+	
 	public static int convertXPosition(String xPosition) {
 		System.out.println("ConvertingXPosition");
 		xPosition = xPosition.toUpperCase();
@@ -110,9 +111,28 @@ public class Game {
 	
 	//Game Logic
 	//Checks to see if the move is legal or not
-	private Checker validatePiece(int[][] board, int xValue, int yValue) {
-		System.out.println("xValue: " + xValue);
-		System.out.println("yValue: " + yValue);
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	private static void validatePiece(int[][] board, int xValue, int yValue) {
+		Checker selectedPiece = new Checker();
+		
+		selectedPiece = selectedPiece.findChecker(xValue, yValue);
+
+		System.out.println("xValue get: " + selectedPiece.getCurrentXPosition());
+		System.out.println("yValue get: " + selectedPiece.getCurrentYPosition());
+		System.out.println("xValue input: " + xValue);
+		System.out.println("yValue input: " + yValue);
 		System.out.println("piece value: " + board[yValue][xValue]);
 	
 			//Checks to see if the piece is a Black piece (either 1 or 3)
@@ -120,7 +140,7 @@ public class Game {
 				System.out.println("Space selected is empty - please try again");
 			} else if (board[yValue][xValue] % 2 != 0) {
 				System.out.println("Piece is black");
-				Checker selectedPiece = Model.blackPieces.get();
+				 
 			} else {
 				System.out.println("Piece is white");
 			}
@@ -330,9 +350,10 @@ public static void validateMove(int[][] board, int xInput, int yInput, boolean i
 		moveThroughList(board);
 		*/
 		
-		validatePiece(board, 2, 7);
-		
-
+		printBoard(board);
+		Checker checker = new Checker();
+		checker.populate();
+		validatePiece(board, 1, 2);
 
 	}
 	
