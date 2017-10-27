@@ -353,7 +353,7 @@ public static void validateMove(int[][] board, int xInput, int yInput, boolean i
 		printBoard(board);
 		Checker checker = new Checker();
 		checker.populate();
-		validatePiece(board, 1, 2);
+		validatePiece(board, 1, 0);
 
 	}
 	

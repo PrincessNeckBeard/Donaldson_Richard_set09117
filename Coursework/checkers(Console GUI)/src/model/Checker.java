@@ -84,11 +84,23 @@ public class Checker extends Board {
 	
 	
 	public Checker findChecker(int xValue, int yValue) {
+		populate();
+		System.out.println("xValue in findChecker" + xValue);
+		System.out.println("yValue in findChecker" + yValue);
+		
 		for(Checker checker : blackPieces) {
-			if((checker.getCurrentXPosition() == xValue) && (checker.getCurrentYPosition() == yValue)) {
-				return checker;
-			}
+			System.out.println("getCurrentXPos" + checker.getCurrentXPosition());
+			System.out.println("getCurrentYPos" + checker.getCurrentYPosition());
+			
+			
+			
+			
+//			if((checker.getCurrentXPosition() == xValue) && (checker.getCurrentYPosition() == yValue)) {
+//				System.out.println("Returning checker");
+//				return checker;
+//			}
 		}
+		System.out.println("returning null");
 		return null;
 	}
 	
