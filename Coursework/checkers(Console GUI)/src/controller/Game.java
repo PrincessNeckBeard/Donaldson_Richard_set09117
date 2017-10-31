@@ -1,14 +1,10 @@
 package controller;
 
-import java.awt.List;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Scanner;
 
-import model.Board;
+import model.Checker;
+import model.Model;
 import model.Move;
-import view.View;
-import controller.GameHistory;
 
 
 public class Game {
@@ -34,6 +30,7 @@ public class Game {
 		}
 		System.out.println();
 	}
+	
 	
 	public static int convertXPosition(String xPosition) {
 		System.out.println("ConvertingXPosition");
@@ -74,7 +71,7 @@ public class Game {
 		
 	}
 	
-	public static Boolean validate(String input) {
+	public static Boolean validateInput(String input) {
 		String xInput = input.substring(0,1);
 		System.out.println("xInput in Validate method is: " + xInput);
 		int yInput = Integer.parseInt(input.substring(1,2));
@@ -98,86 +95,157 @@ public class Game {
 		
 	}
 	
+	
+	//TODO
+	//Add in checker class to validation, so that it gets the piece in question
+	//Validates that it still exists and then further validates if it can move
+	//to where the input is
+	
+	//TODO
+	
+	// Will have to add in updating the position of the checker objects before 
+	//being able to work on validation
+	//as the way I plan on coding uses the classes as part of it
+	
+	
+	
+	//Game Logic
+	//Checks to see if the move is legal or not
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	private static void validatePiece(int[][] board, int xValue, int yValue) {
+		Checker selectedPiece = new Checker();
+		
+		selectedPiece = selectedPiece.findChecker(xValue, yValue);
+
+		System.out.println("xValue get: " + selectedPiece.getCurrentXPosition());
+		System.out.println("yValue get: " + selectedPiece.getCurrentYPosition());
+		System.out.println("xValue input: " + xValue);
+		System.out.println("yValue input: " + yValue);
+		System.out.println("piece value: " + board[yValue][xValue]);
+	
+			//Checks to see if the piece is a Black piece (either 1 or 3)
+			if(board[yValue][xValue] == 0) {
+				System.out.println("Space selected is empty - please try again");
+			} else if (board[yValue][xValue] % 2 != 0) {
+				System.out.println("Piece is black");
+				 
+			} else {
+				System.out.println("Piece is white");
+			}
+	
+			
+			
+			
+	}
+	
+public static void validateMove(int[][] board, int xInput, int yInput, boolean isBlackTurn) {
+	
+	
+	
+	
+	
+}
+	
+	
+	
+	
 	public static void printList() {
-		System.out.println("Printing list");
+		System.out.println("Printing  moves list");
 		for(Move m: GameHistory.moves) {
 			System.out.println(m.toString());
 		}
+		System.out.println("Printing copy list");
+		for(Move m: GameHistory.copy) {
+			System.out.println(m.toString());
+		}
+		
+		
 	}
 	
 	
-	//What I'm thinking is having two Lists, one that has all the moves, 
-	//and then one that copies the move that has been undid into the new list
-	//so that if redo is added then they can just work between both lists
+	public static void moveThroughList(int[][] board) {
+		int choice = 0;
+		int i = 0;
+		int j = 0;
+		//Mov test = GameHistory.moves.get(i);
+		System.out.println("using moveThroughList");
+		System.out.println("1. " + "\t" + "undo ( Move backwards through list)");
+		System.out.println("2. " + "\t" + "redo ( Move forwards through list");
+		System.out.println("3. " + "\t" + "Exit Method");
+		
+		Scanner input = new Scanner(System.in);
+		Move test;
+		
+		
+		
+	do {
+		printList();
+		choice = input.nextInt();
+		if (choice == 1) {
+			
+			i = (GameHistory.moves.size() - 1); 
+			System.out.println("i is: " + i);
+			if(i == 0) {
+				System.out.println("There are no more moves to undo");
+			
+			}
+			
+			test = GameHistory.moves.get(i);
+			
+			
+			board[test.getyMove()][test.getxMove()] = 0;
+			board[test.getyOrigin()][test.getxOrigin()] = 1;
+			 GameHistory.copy.add(test);
+			 GameHistory.moves.remove(test);
+			 System.out.println("Move Undided");
+			
+			//}
+		} else if (choice == 2) {
+			
+				
+			
+			j = (GameHistory.copy.size() - 1);
+			System.out.println("J is: " + j );
+			if(j == -1) {
+				System.out.println("There are no moves to copy");
+				
+			} else {
+			
+			Move copy = GameHistory.copy.get(j);
+			GameHistory.moves.add(copy);
+			GameHistory.copy.remove(copy);
+			i = (GameHistory.moves.size() - 1);
+			System.out.println("i is: " + i);
+			test = GameHistory.moves.get(i);
+			
+			board[test.getyMove()][test.getxMove()] = 0;
+			board[test.getyOrigin()][test.getxOrigin()] = 1;
+			System.out.println("move redided");
+			}
+		} else {
+		System.out.println("choice is 3, exiting method");	
+		}
+		
+		
+	} while(choice != 3);
+		
 	
-	public static void undo(int[][] board) {
-		
-		//this works, but if I'm going to be using two lists, this will have to
-		//be re done, but at least it works! 
-		System.out.println("Copying moves into copy");
-		GameHistory.copy =  GameHistory.moves.clone();
-		System.out.println("Outputting Copy");
-		System.out.println(GameHistory.copy);
-		System.out.println("End of output \n");
-		
-		
-		int i = (GameHistory.moves.size() - 1);
-		System.out.println("The last move played was " + GameHistory.moves.get(i));
-		Move test = GameHistory.moves.get(i);
-		
-		System.out.println("Move.getyMove: " + test.getyMove());
-		System.out.println("Move.getxMove: " + test.getxMove());
-		System.out.println("Move.getyOrigin: " + test.getyOrigin());
-		System.out.println("Move.getxOrigin: " + test.getxOrigin());
-		
-		board[test.getyMove()][test.getxMove()] = 0;
-		board[test.getyOrigin()][test.getxOrigin()] = 1;
-		
+	
+		input.close();
+	}
 
-			System.out.println("C has been pressed, removing Move");
-			GameHistory.moves.remove(i);
-		
-		
-		//board[GameHistory.moves.getOrigin][convertedXOrigin] = 0;
-		//board[yMove][convertedXMove] = 1;
-		
-		
-		
-		
-		
-		
-		
-//		int i = (GameHistory.moves.size() - 1);
-//		
-//			System.out.println("The last move played was " + GameHistory.moves.get(i));
-//			System.out.println("Undo");
-//			System.out.println("Undid move: " + GameHistory.moves.get(i));
-//			GameHistory.moves.remove(i);
-//			i--;
-		
-			
-			
-			
-			
-		
-		
-		
-		
-	}
-	
-	public static void redo(int[][] board) {
-		
-	}
-	
-	
-	
-	
-	
-	//once this is working, see about creating a seperate class to do this
-	//so that the conversion for the origin value and move value can be returned
-	//at the same time
-	
-	
 	public static void movePiece(int[][] board) {
 		boolean error = false;
 		String origin;
@@ -188,7 +256,7 @@ public class Game {
 			origin = keyboard.next();
 			System.out.println("origin at input is: " + origin);
 		
-			if(validate(origin)) {
+			if(validateInput(origin)) {
 				System.out.println("Error in Input, please try again");
 				error = true;
 			} else {
@@ -201,7 +269,7 @@ public class Game {
 			System.out.println("Where would you like to move");
 			 move = keyboard.next();
 			 System.out.println("move at input is: " + move);
-			if(validate(move)) {
+			if(validateInput(move)) {
 				System.out.println("Error in Input, please try again");
 				error = true;
 			} else {
@@ -249,7 +317,7 @@ public class Game {
 		
 		//yMove + ", " + convertedXMove
 		
-		
+		printBoard(board);
 	
 	}
 	
@@ -274,52 +342,19 @@ public class Game {
 			{2, 0, 2, 0, 2, 0, 2, 0 }
 		};
 		
-		
-//		printBoard(board);
-//		movePiece(board);
-//		//printBoard(board);
-//		//movePiece(board);
-//		printList();
-//		keyboard.close();
-		
-		
-		
-//		printBoard(board);
-//		movePiece(board);	
-//		printList();
-//		printBoard(board);
-//		movePiece(board);
-//		printList();
-//		keyboard.close();
-		//Move asda1 = new Move(1, 2, 3, 4);
-		//Move asda2 = new Move(5, 6, 7, 8);
-		//Move asda3 = new Move(9, 10, 11, 12);
-		//Move asda4 = new Move(13, 14, 15, 16);
-		//GameHistory.moves.add(asda1);
-		//GameHistory.moves.add(asda2);
-		//GameHistory.moves.add(asda3);
-		//GameHistory.moves.add(asda4);
+		/*
 		printBoard(board);
 		movePiece(board);
-		printList();
-		printBoard(board);
 		movePiece(board);
-		printBoard(board);
-		printList();
 		movePiece(board);
-		undo(board);
-		printBoard(board);
-		undo(board);
-		printBoard(board);
-		printList();
+		moveThroughList(board);
+		*/
 		
-//		
-//		printList();
-//		undo(board);
-//		printList();
-//	
-		
-	
+		printBoard(board);
+		Checker checker = new Checker();
+		checker.populate();
+		validatePiece(board, 1, 0);
+
 	}
 	
 	
