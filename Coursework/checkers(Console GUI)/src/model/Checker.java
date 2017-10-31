@@ -95,10 +95,10 @@ public class Checker extends Board {
 			
 			
 			
-//			if((checker.getCurrentXPosition() == xValue) && (checker.getCurrentYPosition() == yValue)) {
-//				System.out.println("Returning checker");
-//				return checker;
-//			}
+			if((checker.getCurrentXPosition() == xValue) && (checker.getCurrentYPosition() == yValue)) {
+				System.out.println("Returning checker");
+				return checker;
+			}
 		}
 		System.out.println("returning null");
 		return null;

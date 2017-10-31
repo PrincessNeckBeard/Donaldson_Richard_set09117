@@ -9,7 +9,7 @@ import model.Move;
 
 public class Game {
 
-	static Scanner keyboard = new Scanner(System.in);
+	static
 
 	
 	
