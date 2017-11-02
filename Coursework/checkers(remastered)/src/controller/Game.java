@@ -13,6 +13,7 @@ public class Game {
 	Model model = new Model();
 	Board board = new Board();
 	
+	
 	 static Scanner keyboard = new Scanner(System.in);
 	private void populateModel() {
 		model.populate();
@@ -129,7 +130,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 	
 	
 	
-	public static int convertXPosition(String xPosition) {
+	public int convertXPosition(String xPosition) {
 		System.out.println("ConvertingXPosition");
 		xPosition = xPosition.toUpperCase();
 		System.out.println("xPosition is: " + xPosition);
@@ -187,30 +188,81 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 			}
 		}
 		
-	public static Move movePiece() {
+	
+
+	
+	
+	
+	public boolean isSpaceTaken(int xValue, int yValue) {
+		if((board.getBoard()[yValue][xValue] == 1) || (board.getBoard()[yValue][xValue] == 3)) {
+			System.out.println("Piece is black");
+			return true;
+		} else if ((board.getBoard()[yValue][xValue] == 2) || (board.getBoard()[yValue][xValue] == 4)) {
+			System.out.println("Piece is white");
+			return true;
+		} else {
+			return false;
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	public  Move movePiece() {
+		
 		boolean error = false;
+		String moveInput;
 		String origin;
-		String move;
 		
 		do {
-			System.out.println("Which Piece would you like to move?");
+			System.out.println("Which piece would you like to move?");
 			origin = keyboard.next();
-			System.out.println("origin at input is: " + origin);
-		
+			System.out.println("origin at input is " + origin);
 			if(validateInput(origin)) {
-				System.out.println("Error in Input, please try again");
-				error = true;
+				System.out.println("Error in input, please try again");
+				error = true; 
 			} else {
 				System.out.println("No errors found with input origin");
 				error = false;
 			}
+			
+			
 		}while(error);
+		
+		String xOrigin = origin.substring(0, 1);
+		System.out.println("XOrigin is: " + xOrigin);
+		int yOrigin = Integer.parseInt(origin.substring(1,2));
+		System.out.println("yOrigin is: " + yOrigin);
+		
+		int convertedXOrigin = convertXPosition(xOrigin);
+		
+		System.out.println("convertedXOrigin is: " + convertedXOrigin);
+		yOrigin -= 1;
+		Checker checker = validatePiece(convertedXOrigin, yOrigin);
+		
+		
+		
 		
 		do {
 			System.out.println("Where would you like to move");
-			 move = keyboard.next();
-			 System.out.println("move at input is: " + move);
-			if(validateInput(move)) {
+			 moveInput = keyboard.next();
+			 System.out.println("move at input is: " + moveInput);
+			if(validateInput(moveInput)) {
 				System.out.println("Error in Input, please try again");
 				error = true;
 			} else {
@@ -220,45 +272,36 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		} while(error);
 		
 		
-		String xOrigin = origin.substring(0, 1);
-		System.out.println("XOrigin is: " + xOrigin);
-		int yOrigin = Integer.parseInt(origin.substring(1,2));
-		System.out.println("yOrigin is: " + yOrigin);
-		String xMove = move.substring(0, 1);
+		
+		String xMove = moveInput.substring(0, 1);
 		System.out.println("xMove is: " + xMove);
-		int yMove = Integer.parseInt(move.substring(1,2));
+		int yMove = Integer.parseInt(moveInput.substring(1,2));
 		System.out.println("yMove is: " + yMove);
-		
-		
-		int convertedXOrigin = convertXPosition(xOrigin);
-		
-		System.out.println("convertedXOrigin is: " + convertedXOrigin);
-		
+
 		int convertedXMove = convertXPosition(xMove);
 		
 		System.out.println("convertedXMove is: " + convertedXMove);
 		
-		yOrigin -= 1;
+		
+		
+		
+	//	
 		yMove -= 1;
 		
 		
-		System.out.println("Origin: " + yOrigin + ", " + convertedXOrigin);
+		
 		System.out.println("Move: " + yMove + ", " + convertedXMove);
 		
+		if(validateMove(convertedXMove, convertedXMove) ) {
+			Move move = new Move(convertedXOrigin, yOrigin, convertedXMove, yMove);
+			model.moves.add(move);
+			
+			updateBoard(move);
+			model.updateChecker(move, checker);
+			return move;	
+		}
 		
-		//board[convertedXOrigin][yOrigin] = 0;
-		//board[convertedXMove][yMove] = 1;
-		//System.out.println("DANIEL1 - " + GameHistory.moves.toString());
-		Move asda1 = new Move(convertedXOrigin, yOrigin, convertedXMove, yMove);
-	//	System.out.println("DANIEL2 - " + GameHistory.moves.toString());
-		
-	//	System.out.println("DANIEL - " + GameHistory.moves.toString());
-		
-		
-		//yMove + ", " + convertedXMove
-		
-		return asda1;
-	
+		return null;
 	}
 	
 	
@@ -268,14 +311,8 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		board.getBoard()[move.getyMove()][move.getxMove()] = 1;
 	}
 	
-	public void updateList(Move move) {
-		model.moves.add(move);
-	}
-		
-	
-	
-	
-public void validatePiece(int xValue, int yValue) {
+	//checks to see if the piece exists
+public Checker validatePiece(int xValue, int yValue) {
 	
 	 Checker checker = model.findChecker(xValue, yValue);
 	 System.out.println("xValue get: " + checker.getCurrentXPosition());
@@ -293,68 +330,33 @@ public void validatePiece(int xValue, int yValue) {
 			System.out.println("Piece is white");
 		}
 	 
-	 
+	 return checker;
 }
+	//returns true if move is valid
+public boolean validateMove(int xValue, int yValue) {
+	if(!isSpaceTaken(xValue, yValue)) {
+	 	System.out.println("Space is not Taken");
+	 	return true;
+	} else {
+		System.out.println("Space is taken");
+		return false;
+	}
 	
-	
-	
-//	private static void validatePiece(int[][] board, int xValue, int yValue) {
-//		Checker selectedPiece = new Checker();
-//		
-//		selectedPiece = selectedPiece.findChecker(xValue, yValue);
-//
-//		System.out.println("xValue get: " + selectedPiece.getCurrentXPosition());
-//		System.out.println("yValue get: " + selectedPiece.getCurrentYPosition());
-//		System.out.println("xValue input: " + xValue);
-//		System.out.println("yValue input: " + yValue);
-//		System.out.println("piece value: " + board[yValue][xValue]);
-//	
-			//Checks to see if the piece is a Black piece (either 1 or 3)
-			
-//	
-//			
-//			
-//			
-//	}
-//	
-//public static void validateMove(int[][] board, int xInput, int yInput, boolean isBlackTurn) {
-//	
-//	
-//	
-//	
-//	
-//}
-	
-	
-	
-	
+}
 	
 public static void main(String args[]) {
 	Game controller = new Game();
+	
+	controller.printBoard();
 	controller.populateModel();
-//	controller.printBoard();
-//	Move move = controller.movePiece();
-//	
-//	controller.updateBoard(move);
-//	controller.updateList(move);
-//	controller.printBoard();
-//	move = controller.movePiece();
-//	controller.updateBoard(move);
-//	controller.updateList(move);
-//	controller.printBoard();
-//	move = controller.movePiece();
-//	controller.updateBoard(move);
-//	controller.updateList(move);
-//	controller.printBoard();
-//	move = controller.movePiece();
-//	controller.updateBoard(move);
-//	controller.updateList(move);
-//	controller.printBoard();
-//	controller.printList();
-//	controller.moveThroughList();
-	controller.validatePiece(1,0);
+	controller.movePiece();
+	controller.printBoard();
 	
-	
+	controller.movePiece();
+	controller.movePiece();
+	controller.movePiece();
+	controller.printList();
+	controller.moveThroughList();
 	
 }
 	

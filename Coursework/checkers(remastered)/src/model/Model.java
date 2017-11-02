@@ -50,23 +50,72 @@ public class Model {
 		System.out.println("yValue in findChecker" + yValue);
 		
 		for(Checker checker : blackPieces) {
-		//	checker.toString();
-			System.out.println("getCurrentXPos" + checker.getCurrentXPosition());
-			System.out.println("getCurrentYPos" + checker.getCurrentYPosition());
+		System.out.println(checker.toString());
+		//	System.out.println("getCurrentXPos" + checker.getCurrentXPosition());
+		//	System.out.println("getCurrentYPos" + checker.getCurrentYPosition());
 			
 			
-			
-			
-			if((checker.getCurrentXPosition() == xValue) && (checker.getCurrentYPosition() == yValue)) {
-				System.out.println("Returning checker");
+			if((xValue == checker.getCurrentXPosition()) && (yValue == checker.getCurrentYPosition())) {
+				System.out.println("returning checker");
 				return checker;
 			}
+			
+//			if((checker.getCurrentXPosition() == xValue) && (checker.getCurrentYPosition() == yValue)) {
+//				System.out.println("Returnin 	g checker");
+//				return checker;
+//			}
 		}
 		System.out.println("returning null");
 		return null;
 	}
 	
+	public Move addMove(int xOrigin, int yOrigin, int xMove, int yMove) {
+		System.out.println(xOrigin);
+		System.out.println(yOrigin);
+		System.out.println(xMove);
+		System.out.println(yMove);
+		Move move = new Move(xOrigin, yOrigin, xMove, yMove);
+		moves.add(move);
+		System.out.println("Move added");
+		
+		return move;
+	}
 	
+	public void updateChecker(Move move, Checker checker) {
+		int i = 0;
+		System.out.println("xMove" + move.getxMove());
+		System.out.println("yMove " + move.getyMove());
+		System.out.println("checkerXPos outside loop " + checker.getCurrentXPosition());
+		System.out.println("checkerYPos outside loop " + checker.getCurrentYPosition());
+		
+		if(checker.getType() % 2 != 0) {
+			for(Checker checkers: blackPieces) {
+				if((checker.getCurrentXPosition() == checkers.getCurrentXPosition()) && (checker.getCurrentYPosition() == checkers.getCurrentYPosition())) {
+					System.out.println("Checker found in updateChecker");
+					checker.setCurrentXPosition(move.getxMove());
+					checker.setCurrentYPosision(move.getyMove());
+				blackPieces.set(i, checker);
+				}
+						i++;
+			}
+		} else if (checker.getType() % 2 == 0) {
+			for(Checker checkers: whitePieces) {
+				System.out.println("CheckerXPos " + checkers.getCurrentXPosition());
+				if((move.getxMove() == checkers.getCurrentXPosition()) && (move.getyMove() == checkers.getCurrentYPosition())) {
+					System.out.println("Checker found in updateChecker");
+					checker.setCurrentXPosition(move.getxMove());
+					checker.setCurrentYPosision(move.getyMove());
+				whitePieces.set(i, checker);
+				}
+						i++;
+			} 
+				
+			} else {
+				System.out.println("Checker not found in update Checker");
+		}
+		
+		
+	}
 	
 
 

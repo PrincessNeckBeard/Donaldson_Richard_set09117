@@ -5,7 +5,7 @@ public class Checker {
 	int type;
 	int currentXPosition;
 	int currentYPosition;
-	public Checker(int type, int currentXPosition, int currentYPosision) {
+	public Checker(int type, int currentXPosition, int currentYPosition) {
 		super();
 		this.type = type;
 		this.currentXPosition = currentXPosition;
@@ -28,6 +28,12 @@ public class Checker {
 	}
 	public void setCurrentYPosision(int currentYPosition) {
 		this.currentYPosition = currentYPosition;
+	}
+	
+	@Override
+	public String toString() {
+		return "Checker [type=" + type + ", currentXPosition=" + currentXPosition + ", currentYPosition="
+				+ currentYPosition + "]";
 	}
 	
 	
