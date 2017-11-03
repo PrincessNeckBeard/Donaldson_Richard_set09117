@@ -194,6 +194,9 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 	
 	
 	public boolean isSpaceTaken(int xValue, int yValue) {
+		System.out.println("xValue in isSpaceTaken: " + xValue);
+		System.out.println("yValue in isSpaceTaken: " + yValue);
+		System.out.println("Piece that is being checked: " + board.getBoard()[yValue][xValue]);
 		if((board.getBoard()[yValue][xValue] == 1) || (board.getBoard()[yValue][xValue] == 3)) {
 			System.out.println("Piece is black");
 			return true;
@@ -292,15 +295,16 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		
 		System.out.println("Move: " + yMove + ", " + convertedXMove);
 		
-		if(validateMove(convertedXMove, convertedXMove) ) {
+		if(validateMove(convertedXMove, yMove) ) {
 			Move move = new Move(convertedXOrigin, yOrigin, convertedXMove, yMove);
 			model.moves.add(move);
 			
 			updateBoard(move);
 			model.updateChecker(move, checker);
+			printBoard();
 			return move;	
 		}
-		
+		printBoard();
 		return null;
 	}
 	
@@ -321,14 +325,7 @@ public Checker validatePiece(int xValue, int yValue) {
 	 System.out.println("yValue input: " + yValue);
 	 System.out.println("piece value: " + board.getBoard()[yValue][xValue]);
 	 
-	 if(board.getBoard()[yValue][xValue] == 0) {
-			System.out.println("Space selected is empty - please try again");
-		} else if (board.getBoard()[yValue][xValue] % 2 != 0) {
-			System.out.println("Piece is black");
-			 
-		} else {
-			System.out.println("Piece is white");
-		}
+	
 	 
 	 return checker;
 }
@@ -350,7 +347,7 @@ public static void main(String args[]) {
 	controller.printBoard();
 	controller.populateModel();
 	controller.movePiece();
-	controller.printBoard();
+	
 	
 	controller.movePiece();
 	controller.movePiece();
