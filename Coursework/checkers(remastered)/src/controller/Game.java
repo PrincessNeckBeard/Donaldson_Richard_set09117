@@ -8,7 +8,15 @@ import model.Model;
 import model.Move;
 
 public class Game {
-
+//TODO Actuallly check the functionality of what White can do at this stage
+	//Because thinking about the code, only black pieces can actually move
+	//and be updated on the board, white will just crash the program
+	
+	//XXX Start removing some of the System.out in the methods that
+	//actually work properly
+	//the screen is actually starting to get cluttered and you've got a mix
+	//of some just outputting random values so what you come back to it
+	//it makes no bloody sense! 
 	
 	Model model = new Model();
 	Board board = new Board();
@@ -41,11 +49,9 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 	
 	
 	public void printList() {
-		System.out.println("Printing  moves list");
 		for(Move m: model.moves) {
 			System.out.println(m.toString());
 		}
-		System.out.println("Printing copy list");
 		for(Move m: model.copy) {
 			System.out.println(m.toString());
 		}
@@ -58,7 +64,6 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		int i = 0;
 		int j = 0;
 		//Mov test = GameHistory.moves.get(i);
-		System.out.println("using moveThroughList");
 		System.out.println("1. " + "\t" + "undo ( Move backwards through list)");
 		System.out.println("2. " + "\t" + "redo ( Move forwards through list");
 		System.out.println("3. " + "\t" + "Exit Method");
@@ -88,7 +93,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		//	board.getBoard()[test.getyOrigin()][test.getxOrigin()] = 1;
 			model.copy.add(test);
 			model.moves.remove(test);
-			 System.out.println("Move Undided");
+			 System.out.println("Undo'd move ");
 			
 			//}
 		} else if (choice == 2) {
@@ -109,13 +114,9 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 			System.out.println("i is: " + i);
 			test = model.moves.get(i);
 			updateBoard(test); 
-			//board.getBoard()[test.getyMove()][test.getxMove()] = 0;
-			//board.getBoard()[test.getyOrigin()][test.getxOrigin()] = 1;
 			System.out.println("move redided");
 			}
-		} else {
-		System.out.println("choice is 3, exiting method");	
-		}
+		} 
 		
 		
 	} while(choice != 3);
@@ -131,9 +132,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 	
 	
 	public int convertXPosition(String xPosition) {
-		System.out.println("ConvertingXPosition");
 		xPosition = xPosition.toUpperCase();
-		System.out.println("xPosition is: " + xPosition);
 		int xValue;
 		switch (xPosition) {
 		case "A":
@@ -164,26 +163,25 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 				xValue = 8;
 				break;
 		}
-		System.out.println("xValue is: " + xValue);
 		return xValue;
 		
 	}
 	
 	public static Boolean validateInput(String input) {
 		String xInput = input.substring(0,1);
-		System.out.println("xInput in Validate method is: " + xInput);
+
 		int yInput = Integer.parseInt(input.substring(1,2));
-		System.out.println("yInput in Validate method is: " + yInput);
+
 		
 		boolean xIsLetter = Character.isLetter(xInput.charAt(0));
 		
-		System.out.println("xIsLetter in validate method is: " + xIsLetter);
+
 		
 		if((!input.isEmpty()) || (!xIsLetter)) {
-			System.out.println("returning false in validate");
+	
 			return false;
 		} else {
-			System.out.println("returning true in validate");
+
 			return true; 
 			}
 		}
@@ -194,9 +192,8 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 	
 	
 	public boolean isSpaceTaken(int xValue, int yValue) {
-		System.out.println("xValue in isSpaceTaken: " + xValue);
-		System.out.println("yValue in isSpaceTaken: " + yValue);
-		System.out.println("Piece that is being checked: " + board.getBoard()[yValue][xValue]);
+
+
 		if((board.getBoard()[yValue][xValue] == 1) || (board.getBoard()[yValue][xValue] == 3)) {
 			System.out.println("Piece is black");
 			return true;
@@ -210,8 +207,29 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		
 	}
 	
+	//TODO create switch statement later for all possible pieces
+	//for now, just working on checking if a black piece makes a valid move
 	
 	
+	
+	
+	
+//checks to see if the move itself is moving to a valid space
+	public boolean isMoveValid(int xOrigin, int yOrigin, int xMove, int yMove) {
+		if((xMove == (xOrigin + 1)) || (xMove == (xOrigin - 1))) {
+			System.out.println("xMov is valid");
+			if((yMove == (yOrigin + 1))) {
+				System.out.println("yMove is Valid");
+				return true;
+			} else {
+				System.out.println("yMove is invalid");
+			}
+		} else {
+			System.out.println("XMove Invalid - Move invalid");
+			
+		}
+		return false;
+	}
 	
 	
 	
@@ -235,12 +253,12 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		do {
 			System.out.println("Which piece would you like to move?");
 			origin = keyboard.next();
-			System.out.println("origin at input is " + origin);
+
 			if(validateInput(origin)) {
 				System.out.println("Error in input, please try again");
 				error = true; 
 			} else {
-				System.out.println("No errors found with input origin");
+			
 				error = false;
 			}
 			
@@ -248,23 +266,14 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		}while(error);
 		
 		String xOrigin = origin.substring(0, 1);
-		System.out.println("XOrigin is: " + xOrigin);
 		int yOrigin = Integer.parseInt(origin.substring(1,2));
-		System.out.println("yOrigin is: " + yOrigin);
-		
 		int convertedXOrigin = convertXPosition(xOrigin);
-		
-		System.out.println("convertedXOrigin is: " + convertedXOrigin);
 		yOrigin -= 1;
 		Checker checker = validatePiece(convertedXOrigin, yOrigin);
-		
-		
-		
 		
 		do {
 			System.out.println("Where would you like to move");
 			 moveInput = keyboard.next();
-			 System.out.println("move at input is: " + moveInput);
 			if(validateInput(moveInput)) {
 				System.out.println("Error in Input, please try again");
 				error = true;
@@ -277,25 +286,11 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		
 		
 		String xMove = moveInput.substring(0, 1);
-		System.out.println("xMove is: " + xMove);
 		int yMove = Integer.parseInt(moveInput.substring(1,2));
-		System.out.println("yMove is: " + yMove);
-
 		int convertedXMove = convertXPosition(xMove);
-		
-		System.out.println("convertedXMove is: " + convertedXMove);
-		
-		
-		
-		
-	//	
 		yMove -= 1;
 		
-		
-		
-		System.out.println("Move: " + yMove + ", " + convertedXMove);
-		
-		if(validateMove(convertedXMove, yMove) ) {
+		if(validateMove(convertedXOrigin, yOrigin, convertedXMove, yMove) ) {
 			Move move = new Move(convertedXOrigin, yOrigin, convertedXMove, yMove);
 			model.moves.add(move);
 			
@@ -308,7 +303,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		return null;
 	}
 	
-	
+	//TODO Update this so that White can be updated and move as well
 	public void updateBoard(Move move) {
 		
 		board.getBoard()[move.getyOrigin()][move.getxOrigin()] = 0;
@@ -318,26 +313,22 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 	//checks to see if the piece exists
 public Checker validatePiece(int xValue, int yValue) {
 	
-	 Checker checker = model.findChecker(xValue, yValue);
-	 System.out.println("xValue get: " + checker.getCurrentXPosition());
-	 System.out.println("yValue get: " + checker.getCurrentYPosition());
-	 System.out.println("xValue input: " + xValue);
-	 System.out.println("yValue input: " + yValue);
-	 System.out.println("piece value: " + board.getBoard()[yValue][xValue]);
-	 
-	
-	 
+
+	Checker checker = model.findChecker(xValue, yValue);
 	 return checker;
 }
 	//returns true if move is valid
-public boolean validateMove(int xValue, int yValue) {
-	if(!isSpaceTaken(xValue, yValue)) {
+public boolean validateMove(int xOrigin, int yOrigin, int xMove, int yMove) {
+	if(!isSpaceTaken(xMove, yMove)) {
 	 	System.out.println("Space is not Taken");
-	 	return true;
+	 	if(isMoveValid(xOrigin, yOrigin, xMove, yMove)) {
+	 		return true;	
+	 	}
+	 	
 	} else {
 		System.out.println("Space is taken");
-		return false;
-	}
+		
+	}  return false;
 	
 }
 	
