@@ -7,6 +7,8 @@ public class Move {
 	
 	int xMove;
 	int yMove;
+	
+	Checker checker;
 	public Move(int xOrigin, int yOrigin, int xMove, int yMove) {
 		super();
 		this.xOrigin = xOrigin;

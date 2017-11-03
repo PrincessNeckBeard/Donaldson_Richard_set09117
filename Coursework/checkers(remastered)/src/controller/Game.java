@@ -186,7 +186,66 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 			}
 		}
 		
+	public Checker validatePiece(int xValue, int yValue) {
+		
+
+		Checker checker = model.findChecker(xValue, yValue);
+		 return checker;
+	}
+		//returns true if move is valid
+	public boolean validateMove(int xOrigin, int yOrigin, int xMove, int yMove) {
+		boolean isMovingRight = false;
+		
+		
+		
+		if(!isSpaceTaken(xMove, yMove)) {
+		 	System.out.println("Space is not Taken");
+		 	isMovingRight = isMovingRight(xOrigin, yOrigin, xMove, yMove);
+		 	if(isMoveValid(xOrigin, yOrigin, xMove, yMove, isMovingRight)) {
+		 		return true;	
+		 	}
+		 	
+		} else {
+			System.out.println("Space is taken");
+		return	isJumpValid(xOrigin, yOrigin, xMove, yMove, isMovingRight);
+		}  
+		
+		return false;
+		
+	}
+
+	public boolean isMovingRight(int xOrigin, int yOrigin, int xMove, int yMove) {
+		if(xMove == (xOrigin + 1)) {
+			System.out.println("IsMovingRight is true");
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
 	
+	
+	public boolean isJumpValid(int xOrigin, int yOrigin, int xMove, int yMove, boolean isMovingRight) {
+
+		
+if(isMovingRight) {
+	if(board.getBoard()[yMove + 1][xMove + 1] == 0) {
+		System.out.println("Jump is valid");
+		return true;
+	} else {
+		System.out.println("Jump is invalid");
+	}
+} else {
+	if(board.getBoard()[yMove + 1][xMove - 1] == 0) {
+		System.out.println("Jump is valid");
+		return true;
+	} else {
+		System.out.println("Jump is invalid");
+	}
+}
+		return false;
+
+	}	
 
 	
 	
@@ -215,33 +274,30 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 	
 	
 //checks to see if the move itself is moving to a valid space
-	public boolean isMoveValid(int xOrigin, int yOrigin, int xMove, int yMove) {
-		if((xMove == (xOrigin + 1)) || (xMove == (xOrigin - 1))) {
-			System.out.println("xMov is valid");
-			if((yMove == (yOrigin + 1))) {
-				System.out.println("yMove is Valid");
+	public boolean isMoveValid(int xOrigin, int yOrigin, int xMove, int yMove, boolean isMovingRight) {
+		
+		
+		if(xMove == (xOrigin + 1)) {
+		System.out.println("xMove is valid");
+			isMovingRight = true;
+			if(yMove == (yOrigin + 1)) {
+				System.out.println("yMove is valid");
 				return true;
-			} else {
-				System.out.println("yMove is invalid");
 			}
-		} else {
-			System.out.println("XMove Invalid - Move invalid");
+		
+		} else if (xMove == (xOrigin - 1)) {
+			isMovingRight = false;
+			if(yMove == (yOrigin + 1)) {
+				System.out.println("yMove is valid");
+				return true;
+			}
 			
 		}
 		return false;
+		
+		
+		
 	}
-	
-	
-	
-
-	
-
-	
-	
-	
-	
-	
-	
 	
 	
 	public  Move movePiece() {
@@ -294,7 +350,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 			Move move = new Move(convertedXOrigin, yOrigin, convertedXMove, yMove);
 			model.moves.add(move);
 			
-			updateBoard(move);
+			updateBoard(move, checker.getType());
 			model.updateChecker(move, checker);
 			printBoard();
 			return move;	
@@ -304,36 +360,41 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 	}
 	
 	//TODO Update this so that White can be updated and move as well
-	public void updateBoard(Move move) {
+	public void updateBoard(Move move, int type) {
 		
-		board.getBoard()[move.getyOrigin()][move.getxOrigin()] = 0;
-		board.getBoard()[move.getyMove()][move.getxMove()] = 1;
+		
+		switch(type) {
+		case 1:
+			board.getBoard()[move.getyOrigin()][move.getxOrigin()] = 0;
+			board.getBoard()[move.getyMove()][move.getxMove()] = 1;
+			break;
+		case 2:
+			board.getBoard()[move.getyOrigin()][move.getxOrigin()] = 0;
+			board.getBoard()[move.getyMove()][move.getxMove()] = 2;
+			break;
+		case 3:
+			board.getBoard()[move.getyOrigin()][move.getxOrigin()] = 0;
+			board.getBoard()[move.getyMove()][move.getxMove()] = 3;
+			break;
+		case 4:
+			board.getBoard()[move.getyOrigin()][move.getxOrigin()] = 0;
+			board.getBoard()[move.getyMove()][move.getxMove()] = 4;
+			break;
+			default:
+				break;
+		}
+		
 	}
 	
 	//checks to see if the piece exists
-public Checker validatePiece(int xValue, int yValue) {
-	
 
-	Checker checker = model.findChecker(xValue, yValue);
-	 return checker;
-}
-	//returns true if move is valid
-public boolean validateMove(int xOrigin, int yOrigin, int xMove, int yMove) {
-	if(!isSpaceTaken(xMove, yMove)) {
-	 	System.out.println("Space is not Taken");
-	 	if(isMoveValid(xOrigin, yOrigin, xMove, yMove)) {
-	 		return true;	
-	 	}
-	 	
-	} else {
-		System.out.println("Space is taken");
-		
-	}  return false;
-	
-}
+
+
+
 	
 public static void main(String args[]) {
 	Game controller = new Game();
+	int turn = 1;
 	
 	controller.printBoard();
 	controller.populateModel();

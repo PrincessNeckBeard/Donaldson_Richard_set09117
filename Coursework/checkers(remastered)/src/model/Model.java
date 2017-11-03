@@ -12,7 +12,6 @@ public class Model {
 	public void populate() {
 		
 		blackPieces.add(new Checker(1,1,0));
-		blackPieces.add(new Checker(1,1,0));
 		blackPieces.add(new Checker(1,3,0));
 		blackPieces.add(new Checker(1,5,0));
 		blackPieces.add(new Checker(1,7,0));
