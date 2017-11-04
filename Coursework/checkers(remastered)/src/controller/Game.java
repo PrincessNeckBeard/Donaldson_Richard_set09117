@@ -86,7 +86,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 			
 			test = model.moves.get(i);
 			
-			updateBoard(test);
+			undoRedoBoard(test);
 			
 			
 		//	board.getBoard()[test.getyMove()][test.getxMove()] = 0;
@@ -94,6 +94,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 			model.copy.add(test);
 			model.moves.remove(test);
 			 System.out.println("Undo'd move ");
+			printList();
 			
 			//}
 		} else if (choice == 2) {
@@ -115,6 +116,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 			test = model.moves.get(i);
 			updateBoard(test); 
 			System.out.println("move redided");
+			printList();
 			}
 		} 
 		
@@ -207,7 +209,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		 	
 		} else {
 			System.out.println("Space is taken");
-		return	isJumpValid(xOrigin, yOrigin, xMove, yMove, isMovingRight);
+			
 		}  
 		
 		return false;
@@ -300,12 +302,12 @@ if(isMovingRight) {
 	}
 	
 	
-	public  Move movePiece() {
+	public  Move movePiece(int turn) {
 		
 		boolean error = false;
 		String moveInput;
 		String origin;
-		
+		boolean isCorrectTurn;
 		do {
 			System.out.println("Which piece would you like to move?");
 			origin = keyboard.next();
@@ -325,65 +327,78 @@ if(isMovingRight) {
 		int yOrigin = Integer.parseInt(origin.substring(1,2));
 		int convertedXOrigin = convertXPosition(xOrigin);
 		yOrigin -= 1;
-		Checker checker = validatePiece(convertedXOrigin, yOrigin);
-		
 		do {
-			System.out.println("Where would you like to move");
-			 moveInput = keyboard.next();
-			if(validateInput(moveInput)) {
-				System.out.println("Error in Input, please try again");
-				error = true;
-			} else {
-				error = false;
-				System.out.println("No errors found with input move");
-			}
-		} while(error);
-		
-		
-		
-		String xMove = moveInput.substring(0, 1);
-		int yMove = Integer.parseInt(moveInput.substring(1,2));
-		int convertedXMove = convertXPosition(xMove);
-		yMove -= 1;
-		
-		if(validateMove(convertedXOrigin, yOrigin, convertedXMove, yMove) ) {
-			Move move = new Move(convertedXOrigin, yOrigin, convertedXMove, yMove);
-			model.moves.add(move);
+		if(board.getBoard()[yOrigin][convertedXOrigin] == turn) {
+			isCorrectTurn = true;
+			Checker checker = validatePiece(convertedXOrigin, yOrigin);	
+			do {
+				System.out.println("Where would you like to move");
+				 moveInput = keyboard.next();
+				if(validateInput(moveInput)) {
+					System.out.println("Error in Input, please try again");
+					error = true;
+				} else {
+					error = false;
+					System.out.println("No errors found with input move");
+				}
+			} while(error);
 			
-			updateBoard(move, checker.getType());
-			model.updateChecker(move, checker);
+			
+			
+			String xMove = moveInput.substring(0, 1);
+			int yMove = Integer.parseInt(moveInput.substring(1,2));
+			int convertedXMove = convertXPosition(xMove);
+			yMove -= 1;
+			
+			if(validateMove(convertedXOrigin, yOrigin, convertedXMove, yMove) ) {
+			//	if(isJumpValid(xOrigin, yOrigin, xMove, yMove, isMovingRight));
+				
+				
+				Move move = new Move(convertedXOrigin, yOrigin, convertedXMove, yMove);
+				model.moves.add(move);
+				
+				updateBoard(move);
+				model.updateChecker(move, checker);
+				printBoard();
+				return move;	
+			}
 			printBoard();
-			return move;	
+			return null;	
+		} else {
+			System.out.println("It is not your turn");
+			isCorrectTurn = false;
 		}
-		printBoard();
+		}while(!isCorrectTurn);
+		
 		return null;
+		
 	}
 	
+	
+	
+	public void undoRedoBoard(Move move) {
+		
+		int type = board.getBoard()[move.getyMove()][move.getxMove()];
+		
+		board.getBoard()[move.getyOrigin()][move.getxOrigin()] = type;
+		board.getBoard()[move.getyMove()][move.getxMove()] = 0;
+		
+		
+	}
+	
+	
+	
+	
+	
 	//TODO Update this so that White can be updated and move as well
-	public void updateBoard(Move move, int type) {
+	public void updateBoard(Move move) {
+		
+		int type = board.getBoard()[move.getyOrigin()][move.getxOrigin()];
 		
 		
-		switch(type) {
-		case 1:
 			board.getBoard()[move.getyOrigin()][move.getxOrigin()] = 0;
-			board.getBoard()[move.getyMove()][move.getxMove()] = 1;
-			break;
-		case 2:
-			board.getBoard()[move.getyOrigin()][move.getxOrigin()] = 0;
-			board.getBoard()[move.getyMove()][move.getxMove()] = 2;
-			break;
-		case 3:
-			board.getBoard()[move.getyOrigin()][move.getxOrigin()] = 0;
-			board.getBoard()[move.getyMove()][move.getxMove()] = 3;
-			break;
-		case 4:
-			board.getBoard()[move.getyOrigin()][move.getxOrigin()] = 0;
-			board.getBoard()[move.getyMove()][move.getxMove()] = 4;
-			break;
-			default:
-				break;
-		}
-		
+			board.getBoard()[move.getyMove()][move.getxMove()] = type;
+	
 	}
 	
 	//checks to see if the piece exists
@@ -398,12 +413,15 @@ public static void main(String args[]) {
 	
 	controller.printBoard();
 	controller.populateModel();
-	controller.movePiece();
+	controller.movePiece(turn);
+	turn = 2;
 	
-	
-	controller.movePiece();
-	controller.movePiece();
-	controller.movePiece();
+	controller.movePiece(turn);
+	turn = 1;
+	controller.movePiece(turn);
+	turn = 2;
+	controller.movePiece(turn);
+	turn = 1;
 	controller.printList();
 	controller.moveThroughList();
 	
