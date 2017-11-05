@@ -308,26 +308,29 @@ if(isMovingRight) {
 		String moveInput;
 		String origin;
 		boolean isCorrectTurn;
-		do {
-			System.out.println("Which piece would you like to move?");
-			origin = keyboard.next();
-
-			if(validateInput(origin)) {
-				System.out.println("Error in input, please try again");
-				error = true; 
-			} else {
-			
-				error = false;
-			}
-			
-			
-		}while(error);
 		
-		String xOrigin = origin.substring(0, 1);
-		int yOrigin = Integer.parseInt(origin.substring(1,2));
-		int convertedXOrigin = convertXPosition(xOrigin);
-		yOrigin -= 1;
+		
 		do {
+			do {
+				System.out.println("Which piece would you like to move?");
+				origin = keyboard.next();
+
+				if(validateInput(origin)) {
+					System.out.println("Error in input, please try again");
+					error = true; 
+				} else {
+				
+					error = false;
+				}
+				
+				
+			}while(error);
+			
+			String xOrigin = origin.substring(0, 1);
+			int yOrigin = Integer.parseInt(origin.substring(1,2));
+			int convertedXOrigin = convertXPosition(xOrigin);
+			yOrigin -= 1;
+			
 		if(board.getBoard()[yOrigin][convertedXOrigin] == turn) {
 			isCorrectTurn = true;
 			Checker checker = validatePiece(convertedXOrigin, yOrigin);	
