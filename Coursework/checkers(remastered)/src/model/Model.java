@@ -51,7 +51,15 @@ public class Model {
 				return checker;
 			}
 		}
+		
+		for(Checker checker : whitePieces) {
+			if((xValue == checker.getCurrentXPosition()) && (yValue == checker.getCurrentYPosition())) {
+				return checker;
+			}
+		}
+		
 		return null;
+		
 	}
 	
 	public Move addMove(int xOrigin, int yOrigin, int xMove, int yMove) {
@@ -62,10 +70,12 @@ public class Model {
 		return move;
 	}
 	
-	public void updateChecker(Move move, Checker checker) {
+	public void updateChecker(Move move, Checker checker, int turn) {
 		int i = 0;
 		
-		if(checker.getType() % 2 != 0) {
+		
+		
+		if(turn == 1) {
 			for(Checker checkers: blackPieces) {
 				if((checker.getCurrentXPosition() == checkers.getCurrentXPosition()) && (checker.getCurrentYPosition() == checkers.getCurrentYPosition())) {
 					checker.setCurrentXPosition(move.getxMove());
@@ -74,7 +84,7 @@ public class Model {
 				}
 						i++;
 			}
-		} else if (checker.getType() % 2 == 0) {
+		} else if (turn == 2) {
 			for(Checker checkers: whitePieces) {
 				System.out.println("CheckerXPos " + checkers.getCurrentXPosition());
 				if((move.getxMove() == checkers.getCurrentXPosition()) && (move.getyMove() == checkers.getCurrentYPosition())) {

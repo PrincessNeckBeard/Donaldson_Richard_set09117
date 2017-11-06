@@ -208,21 +208,47 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		isMoveValid = isMoveValid(xOrigin, yOrigin, xMove, yMove, isMovingRight, isMovingDown);
 		isJumpValid = isJumpValid(xOrigin, yOrigin, xMove, yMove, isMovingRight, isMovingDown);
 		
-		if(!isSpaceTaken) {
-			System.out.println("Space is not taken");
-			if(isMoveValid) {
+		
+		
+		if(isMoveValid) {
+			if(isSpaceTaken) {
+				if(isJumpValid) {
+					System.out.println("Jump is valid");
+					return true;
+				} else {
+					System.out.println("Jump is invalid - Move is invalid");
+					return false;
+				}
+				
+			} else {
+				System.out.println("Space is empty");
 				return true;
+				//INSERT MOVE CODE HERE
 			}
 		} else {
-			System.out.println("Space is taken");
-			if(isMoveValid) {
-				if(isJumpValid) {
-					return true;
-				}
-				return false;
-		}
-		}
+			System.out.println("Move isn't Valid");
 			return false;
+		}
+		
+		
+		
+		
+		
+//		if(!isSpaceTaken) {
+//			System.out.println("Space is not taken");
+//			if(isMoveValid) {
+//				return true;
+//			}
+//		} else {
+//			System.out.println("Space is taken");
+//			if(isMoveValid) {
+//				if(isJumpValid) {
+//					return true;
+//				}
+//				return false;
+//		}
+//		}
+//			return false;
 		
 		
 		
@@ -349,6 +375,27 @@ if(isMovingRight) {
 		
 	}
 	
+	public boolean isPieceEnemy(int xValue, int yValue, Checker checker, int turn) {
+		
+		
+		int piece = checker.getType();
+		
+		if((piece == 1) || (piece == 3)) {
+			if(turn == 1) {
+				System.out.println("Piece is not the enemy");
+				return false;
+			} else {
+				System.out.println("Piece is the enemy");
+			
+			}
+		}
+
+		return true;
+	}
+	
+	
+	
+	
 	//TODO create switch statement later for all possible pieces
 	//for now, just working on checking if a black piece makes a valid move
 	
@@ -422,7 +469,7 @@ if(isMovingRight) {
 		boolean error = false;
 		String moveInput;
 		String origin;
-		boolean isCorrectTurn;
+		boolean isCorrectTurn = false;
 		
 		
 		do {
@@ -461,7 +508,7 @@ if(isMovingRight) {
 				}
 			} while(error);
 			
-			
+		
 			
 			String xMove = moveInput.substring(0, 1);
 			int yMove = Integer.parseInt(moveInput.substring(1,2));
@@ -470,11 +517,14 @@ if(isMovingRight) {
 			boolean isMovingRight = isMovingRight(convertedXOrigin, yOrigin, convertedXMove, yMove);
 			boolean isMovingDown = isMovingDown(convertedXOrigin, yOrigin, convertedXMove, yMove);
 			Move move = null;
+			
 			//checks to see if the move itself is valid
-			if(validateMove(convertedXOrigin, yOrigin, convertedXMove, yMove) ) {
-			//checks to see if there is a piece to take
+			
+		if(isMoveValid(convertedXOrigin, yOrigin, convertedXMove, yMove, isMovingRight, isMovingDown)) {
+			if(isSpaceTaken(convertedXMove, yMove)) {
+				System.out.println("Space is taken");
+				if(isPieceEnemy(convertedXMove, yMove, checker, turn)) {
 					if(isJumpValid(convertedXOrigin, yOrigin, convertedXMove, yMove, isMovingRight, isMovingDown)) {
-						//checks to see if the piece is moving left or right
 						if(isMovingRight) {
 							//checks to see if the piece is moving up or down
 							if(isMovingDown) {
@@ -500,25 +550,75 @@ if(isMovingRight) {
 							
 						}
 					}
-				removeTakenPiece(convertedXMove, yMove);
+				}
+			} else {
+				System.out.println("Space isn't taken");
+				move = new Move(convertedXOrigin, yOrigin, convertedXMove, yMove);
+				model.moves.add(move);
 				updateBoard(move);
-				model.updateChecker(move, checker);
+				model.updateChecker(move, checker, turn);
 				printBoard();
-				return move;	
+				return move;
 			}
-			printBoard();
-			return null;	
 		} else {
-			System.out.println("It is not your turn");
+			System.out.println("Move is invalid");
 			isCorrectTurn = false;
 		}
-		}while(!isCorrectTurn);
+		updateBoard(move);
+		model.updateChecker(move, checker, turn);
+		printBoard();
+		return move;
+		}
 		
+		}while(!isCorrectTurn);
+
+		printBoard();
 		return null;
 		
 	}
+//			if(validateMove(convertedXOrigin, yOrigin, convertedXMove, yMove) ) {
+//			//checks to see if there is a piece to take
+//					if(isJumpValid(convertedXOrigin, yOrigin, convertedXMove, yMove, isMovingRight, isMovingDown)) {
+//						//checks to see if the piece is moving left or right
+//						if(isMovingRight) {
+//							//checks to see if the piece is moving up or down
+//							if(isMovingDown) {
+//								//means the piece is moving right and down
+//								 move = new Move(convertedXOrigin, yOrigin, convertedXMove + 1, yMove + 1);
+//								model.moves.add(move);	
+//							} else {
+//								//means the piece is moving right, but up
+//								 move = new Move(convertedXOrigin, yOrigin, convertedXMove + 1, yMove - 1);
+//								model.moves.add(move);
+//							}
+//							
+//						} else {
+//							if(isMovingDown) {
+//								//means its moving left and down
+//								move = new Move(convertedXOrigin, yOrigin, convertedXMove - 1, yMove + 1);
+//								model.moves.add(move);
+//							} else {
+//								//means it's moving left and up
+//								move = new Move(convertedXOrigin, yOrigin, convertedXMove - 1, yMove - 1);
+//								model.moves.add(move);	
+//							}
+//							
+//						}
+					
+
+
+//		} else {
+//			System.out.println("It is not your turn");
+//			isCorrectTurn = false;
+//		}
+		
+		
+		
+		
+		
 	
 	
+
 	
 	public void undoRedoBoard(Move move) {
 		
@@ -564,7 +664,7 @@ public static void main(String args[]) {
 
 	turn = 2;
 	controller.movePiece(turn);
-
+	turn = 1;
 	controller.movePiece(turn);
 
 	controller.movePiece(turn);
