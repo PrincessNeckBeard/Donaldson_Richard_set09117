@@ -225,6 +225,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 
 	public boolean isJumpValid(int xOrigin, int yOrigin, int xMove, int yMove, boolean isMovingRight, boolean isMovingDown) {
 
+		try {
 		
 	if(isMovingDown) {
 		if(isMovingRight) {
@@ -275,7 +276,10 @@ if(isMovingRight) {
 	}
 }
 		return false;
-
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("Index Out of Bounds - Move invalid");
+			return false;
+		}
 	}	
 
 	public boolean isSpaceTaken(int xValue, int yValue) {
@@ -427,7 +431,7 @@ if(isMovingRight) {
 			Move move = null;
 			
 			//checks to see if the move itself is valid
-			
+			try {
 		if(isMoveValid(convertedXOrigin, yOrigin, convertedXMove, yMove, isMovingRight, isMovingDown)) {
 			if(isSpaceTaken(convertedXMove, yMove)) {
 				System.out.println("Space is taken");
@@ -473,6 +477,9 @@ if(isMovingRight) {
 			System.out.println("Move is invalid");
 			isCorrectTurn = false;
 		}
+			} catch (NullPointerException e) {
+				System.out.println("NullPointerException - Error");
+			}
 		removeTakenPiece(convertedXMove, yMove);
 		updateBoard(move);
 		model.updateChecker(move, checker, turn);
@@ -498,12 +505,14 @@ if(isMovingRight) {
 
 	//TODO Update this so that White can be updated and move as well
 	public void updateBoard(Move move) {
-		
+		try {
 		int type = board.getBoard()[move.getyOrigin()][move.getxOrigin()];
 		
 			board.getBoard()[move.getyOrigin()][move.getxOrigin()] = 0;
 			board.getBoard()[move.getyMove()][move.getxMove()] = type;
-	
+		} catch (NullPointerException e) {
+			System.out.println("Move invalid");
+		}
 	}
 	
 	//checks to see if the piece exists
