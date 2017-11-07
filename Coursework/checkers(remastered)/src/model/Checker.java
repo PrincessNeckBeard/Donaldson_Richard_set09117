@@ -32,8 +32,11 @@ public class Checker {
 	
 	@Override
 	public String toString() {
-		return "Checker [type=" + type + ", currentXPosition=" + currentXPosition + ", currentYPosition="
-				+ currentYPosition + "]";
+		
+		String s = "Type" + "\t" + "CurrentXPosition" + "\t" + "CurrentYPosition";
+		s += type + "\t" + currentXPosition + "\t" + currentYPosition;
+		
+		return s;
 	}
 	
 	

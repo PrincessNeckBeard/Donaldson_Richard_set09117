@@ -22,7 +22,7 @@ public class Model {
 		blackPieces.add(new Checker(1,1,2));
 		blackPieces.add(new Checker(1,3,2));
 		blackPieces.add(new Checker(1,5,2));
-		blackPieces.add(new Checker(1,6,2));
+		blackPieces.add(new Checker(1,7,2));
 		
 		whitePieces.add(new Checker(2,0,5));
 		whitePieces.add(new Checker(2,2,5));
@@ -76,8 +76,8 @@ public class Model {
 		
 		
 		if(turn == 1) {
-			for(Checker checkers: blackPieces) {
-				if((checker.getCurrentXPosition() == checkers.getCurrentXPosition()) && (checker.getCurrentYPosition() == checkers.getCurrentYPosition())) {
+			for(Checker c: blackPieces) {
+				if((checker.getCurrentXPosition() == c.getCurrentXPosition()) && (checker.getCurrentYPosition() == c.getCurrentYPosition())) {
 					checker.setCurrentXPosition(move.getxMove());
 					checker.setCurrentYPosision(move.getyMove());
 				blackPieces.set(i, checker);
@@ -85,9 +85,9 @@ public class Model {
 						i++;
 			}
 		} else if (turn == 2) {
-			for(Checker checkers: whitePieces) {
-				System.out.println("CheckerXPos " + checkers.getCurrentXPosition());
-				if((move.getxMove() == checkers.getCurrentXPosition()) && (move.getyMove() == checkers.getCurrentYPosition())) {
+			for(Checker c: whitePieces) {
+				System.out.println("CheckerXPos " + c.getCurrentXPosition());
+				if((checker.getCurrentXPosition() == c.getCurrentXPosition()) && (checker.getCurrentYPosition() == c.getCurrentYPosition())) {
 					checker.setCurrentXPosition(move.getxMove());
 					checker.setCurrentYPosision(move.getyMove());
 				whitePieces.set(i, checker);
@@ -97,6 +97,21 @@ public class Model {
 				
 			} else {
 				System.out.println("Checker not found");
+		}
+		
+		
+	}
+	
+	
+	public void outputCheckers() {
+		System.out.println("Black Pieces");
+		for(Checker checkers: blackPieces) {
+			System.out.println(checkers.toString());
+		}
+		
+		System.out.println("White Pieces");
+		for(Checker checkers: whitePieces) {
+			System.out.println(checkers.toString());
 		}
 		
 		
