@@ -338,6 +338,7 @@ if(isMovingRight) {
 					isMovingRight = false;
 					if(yMove == (yOrigin + 1)) {
 						System.out.println("yMove is valid");
+						return true;
 					}
 					else {
 						System.out.println("yMove is invalid");
