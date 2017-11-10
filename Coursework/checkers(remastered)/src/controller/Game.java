@@ -11,6 +11,8 @@ public class Game {
 
 	Model model = new Model();
 	Board board = new Board();
+	int blackPieces = 12;
+	int whitePieces = 1;
 	static Scanner keyboard = new Scanner(System.in);
 	
 	 private void populateModel() {
@@ -21,7 +23,10 @@ public class Game {
 
 	public void printBoard() {
 String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
-		
+		for(int k = 0; k <8; k++) {
+			System.out.print("\t" + xAxis[k]);
+		}
+		System.out.println("\n");
 		for(int i = 0; i<8;i++) {
 			System.out.print((i + 1) + "\t");
 			for(int j = 0; j<8;j++) {
@@ -325,8 +330,10 @@ if(isMovingRight) {
 	
 //checks to see if the move itself is moving to a valid space
 	public boolean isMoveValid(int xOrigin, int yOrigin, int xMove, int yMove, boolean isMovingRight, boolean isMovingDown) {
+
+		if((board.getBoard()[yOrigin][xOrigin] == 1) && (isMovingDown)) {
 		
-		if(isMovingDown) {
+		
 			if(xMove == (xOrigin + 1)) {
 				System.out.println("xMove is valid");
 				isMovingRight = true;
@@ -351,7 +358,18 @@ if(isMovingRight) {
 				} else {
 					System.out.println("xMove is Invalid");
 			}
+		
+		
 		} else {
+			if(board.getBoard()[yOrigin][xOrigin] == 2) {
+				System.out.println("You're moving in the wrong direction, idiot!");
+				return false;
+			}
+			
+				
+			if((!isMovingDown) && (board.getBoard()[yOrigin][xOrigin] == 2)) {
+				
+			
 			if(xMove == (xOrigin + 1)) {
 				System.out.println("xMove is valid");
 				isMovingRight = true;
@@ -375,10 +393,15 @@ if(isMovingRight) {
 			} else {
 				System.out.println("xMove is invalid");
 			}
+		} else {
+			if(board.getBoard()[yOrigin][xOrigin] == 1) {
+				System.out.println("You're moving in the wrong direction, idiot!");
+				return false;
+			}
 		}
-		
-		return false;
+		}
 	
+		return false;
 	}
 	
 	public  Move movePiece(int turn) {
@@ -467,22 +490,45 @@ if(isMovingRight) {
 				System.out.println("Space isn't taken");
 				move = new Move(convertedXOrigin, yOrigin, convertedXMove, yMove);
 				model.moves.add(move);
+				if(canBeKing(checker, move)) {
+					checker = convertToKing(checker, move);
+					model.updateChecker(move, checker, turn);
+					
+					
+					printBoard();
+					return move;
+				}
 				
-				updateBoard(move);
 				model.updateChecker(move, checker, turn);
+				updateBoard(move);
+				
 				printBoard();
 				return move;
 			}
 		} else {
-			System.out.println("Move is invalid");
+			System.out.println("Error in move");
+			//System.out.println("It's not your turn");
 			isCorrectTurn = false;
 		}
 			} catch (NullPointerException e) {
 				System.out.println("NullPointerException - Error");
+				return null;
 			}
 		removeTakenPiece(convertedXMove, yMove);
-		updateBoard(move);
+		if(canBeKing(checker, move)) {
+			checker = convertToKing(checker, move);
+			model.updateChecker(move, checker, turn);
+			
+			printBoard();
+			return move;
+		}
+		
+		
+		
+		
 		model.updateChecker(move, checker, turn);
+		updateBoard(move);
+		
 		printBoard();
 		return move;
 		}
@@ -518,11 +564,14 @@ if(isMovingRight) {
 	//checks to see if the piece exists
 
 	public void removeTakenPiece(int xPiece, int yPiece) {
+	
 		Checker checker = model.findChecker(xPiece,  yPiece);
 		if((checker.getType() == 1) || (checker.getType() == 3)) {
 			model.blackPieces.remove(checker);
+			blackPieces -= 1;
 		} else {
 			model.whitePieces.remove(checker);
+			whitePieces -= 1;
 		}
 		board.getBoard()[yPiece][xPiece] = 0;
 		
@@ -536,56 +585,108 @@ if(isMovingRight) {
 	public int nextTurn(int turn) {
 		if(turn == 1) {
 			turn = 2;
+			System.out.println("It's White's turn");
 		} else  if(turn == 2){
 			turn = 1;
+			System.out.println("It's Black's turn");
 		}
+		
 		return turn;
 	}
 
 
+	 public boolean canBeKing(Checker checker, Move move) {
+		 
+		 if(checker.getType() == 1) {
+			 if(move.getyMove() == 7) {
+				System.out.println("Checker is becoming a king");
+				 return true;
+			 } else {
+				 //Do nothing
+				
+			 }
+		 }
+		 
+			 if(checker.getType() == 2) {
+				 if(move.getyMove() == 0) {
+					 checker.setType(4);
+					 System.out.println("Checker is becoming a king");
+					 return true;
+					 
+				 } else {
+					 
+				 }
+			 }
+			
+		return false;
+			 
+		 }
+		 
+	 
+	 public Checker convertToKing(Checker checker, Move move) {
+		 int type = 0;
+		 if(checker.getType() == 1) {
+			 checker.setType(3);
+			 type = 3;
+		 } else if (checker.getType() == 2) {
+			 checker.setType(4);
+			 type = 4;
+		 }
+		 
+		 board.getBoard()[move.getyOrigin()][move.getxOrigin()] = 0;
+		board.getBoard()[move.getyMove()][move.getxMove()] = type;
+		 
+		return checker;
+		 
+		 
+	 }
+		 
+		 
+	public int hasBlackWon() {
+		if(blackPieces == 0) {
+			return 1;
+		} else if(whitePieces == 0) {
+			return 2;
+		}
+		
+		return 0;
+	}
+	 
+	
+	
+	
 public static void main(String args[]) {
 	Game controller = new Game();
-
+int endGameCheck = 0;
 	int turn = 1;
-
+	boolean endgame = false;
+	
 	controller.populateModel();
 //	controller.outputPieces();
 	controller.printBoard();
 	
+	do {
+	
+			try {
+			
+			controller.movePiece(turn);
+			turn =	controller.nextTurn(turn);
+			
+			} catch(NullPointerException e) {
+				System.out.println("Try catch in Main caught this");
+				
+			}
+			
+		endGameCheck = controller.hasBlackWon();
+		
+		if(endGameCheck != 0) {
+			endgame = true;
+			
+		} 
+	}while(!endgame);
 	
 	
-	controller.movePiece(turn);
-turn =	controller.nextTurn(turn);
-	
-	controller.movePiece(turn);
-	turn =	controller.nextTurn(turn);
-	
-	controller.movePiece(turn);
-	turn =	controller.nextTurn(turn);
-	
-	controller.movePiece(turn);
-	turn =	controller.nextTurn(turn);
-	
-	controller.movePiece(turn);
-	turn =	controller.nextTurn(turn);
-	
-	controller.movePiece(turn);
-	turn =	controller.nextTurn(turn);
-	
-	controller.movePiece(turn);
-	turn =	controller.nextTurn(turn);
-	
-	controller.movePiece(turn);
-	turn =	controller.nextTurn(turn);
-	
-	controller.movePiece(turn);
-	turn =	controller.nextTurn(turn);
-	
-	controller.movePiece(turn);
-	turn =	controller.nextTurn(turn);
-
-	
-
+	controller.outputPieces();
 	controller.printList();
 	//controller.moveThroughList();
 	

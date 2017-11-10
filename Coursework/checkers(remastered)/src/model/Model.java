@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-
+import model.*;
 public class Model {
 	public ArrayList<Checker> blackPieces = new ArrayList<Checker>();
 	public ArrayList<Checker> whitePieces = new ArrayList<Checker>();
@@ -10,7 +10,7 @@ public class Model {
 	 public LinkedList<Move> copy = new LinkedList<Move>();
 	
 	public void populate() {
-		
+		/*
 		blackPieces.add(new Checker(1,1,0));
 		blackPieces.add(new Checker(1,3,0));
 		blackPieces.add(new Checker(1,5,0));
@@ -36,7 +36,10 @@ public class Model {
 		whitePieces.add(new Checker(2,2,7));
 		whitePieces.add(new Checker(2,4,7));
 		whitePieces.add(new Checker(2,6,7));
+		*/
 		
+		blackPieces.add(new Checker(1,3,3));
+		whitePieces.add(new Checker(2,1,3));
 		
 		
 		
