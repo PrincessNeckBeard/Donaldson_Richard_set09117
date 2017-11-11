@@ -792,6 +792,7 @@ if(isMovingRight) {
 	
 public static void main(String args[]) {
 	Game controller = new Game();
+	AI AIController = new AI();
 int endGameCheck = 0;
 	int turn = 1;
 	boolean endgame = false;
@@ -807,7 +808,7 @@ int endGameCheck = 0;
 			controller.movePiece(turn);
 			controller.outputPieces();
 			controller.printList();
-			controller.moveThroughList();
+	//		controller.moveThroughList();
 			turn =	controller.nextTurn(turn);
 			
 			} catch(NullPointerException e) {
