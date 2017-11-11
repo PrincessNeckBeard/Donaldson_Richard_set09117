@@ -361,48 +361,75 @@ if(isMovingRight) {
 		
 		
 		} else {
-			if(board.getBoard()[yOrigin][xOrigin] == 2) {
-				System.out.println("You're moving in the wrong direction, idiot!");
-				return false;
-			}
-			
-				
 			if((!isMovingDown) && (board.getBoard()[yOrigin][xOrigin] == 2)) {
 				
-			
-			if(xMove == (xOrigin + 1)) {
-				System.out.println("xMove is valid");
-				isMovingRight = true;
-				if(yMove == (yOrigin - 1)) {
-					System.out.println("yMove is valid");
-					return true;
+				
+				if(xMove == (xOrigin + 1)) {
+					System.out.println("xMove is valid");
+					isMovingRight = true;
+					if(yMove == (yOrigin - 1)) {
+						System.out.println("yMove is valid");
+						return true;
+					} else {
+						System.out.println("yMove is invalid");
+						return false;
+					}
+				} else if (xMove == (xOrigin - 1)) {
+					System.out.println("xMove is valid");
+					isMovingRight = false;
+					if(yMove == (yOrigin - 1)) {
+						System.out.println("yMove is valid");
+						return true;
+					} else {
+						System.out.println("yMove is invalid");
+						return false;
+					}
 				} else {
-					System.out.println("yMove is invalid");
-					return false;
-				}
-			} else if (xMove == (xOrigin - 1)) {
-				System.out.println("xMove is valid");
-				isMovingRight = false;
-				if(yMove == (yOrigin - 1)) {
-					System.out.println("yMove is valid");
-					return true;
-				} else {
-					System.out.println("yMove is invalid");
-					return false;
+					System.out.println("xMove is invalid");
 				}
 			} else {
-				System.out.println("xMove is invalid");
+				if(board.getBoard()[yOrigin][xOrigin] == 1) {
+					System.out.println("You're moving in the wrong direction, idiot!");
+					return false;
+				}
 			}
-		} else {
-			if(board.getBoard()[yOrigin][xOrigin] == 1) {
-				System.out.println("You're moving in the wrong direction, idiot!");
-				return false;
-			}
+			
+				
+			
 		}
-		}
+		
 	
 		return false;
 	}
+	
+	public boolean isDoubleJumpValid(Checker checker, Move move) {
+		
+	switch(checker.getType()) {
+	case 1:
+		if(board.getBoard()[move.getyMove() + 1][move.getxMove() + 1] == 2 )
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	case 4:
+		break;
+
+	
+	}
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 	public  Move movePiece(int turn) {
 		boolean error = false;
@@ -485,6 +512,7 @@ if(isMovingRight) {
 							
 						}
 					}
+					isDoubleJumpValid(checker, move);
 				}
 			} else {
 				System.out.println("Space isn't taken");
