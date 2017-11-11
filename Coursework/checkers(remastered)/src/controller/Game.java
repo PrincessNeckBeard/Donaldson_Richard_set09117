@@ -12,8 +12,8 @@ public class Game {
 	Model model = new Model();
 	Board board = new Board();
 	int blackPieces = 12;
-	int whitePieces = 1;
-	static Scanner keyboard = new Scanner(System.in);
+	int whitePieces = 12;
+	
 	
 	 private void populateModel() {
 		model.populate();
@@ -331,6 +331,137 @@ if(isMovingRight) {
 //checks to see if the move itself is moving to a valid space
 	public boolean isMoveValid(int xOrigin, int yOrigin, int xMove, int yMove, boolean isMovingRight, boolean isMovingDown) {
 
+		int type = board.getBoard()[yOrigin][xOrigin];
+		
+		switch(type) {
+		case 1:
+			if(isMovingDown) {
+				if(xMove == (xOrigin + 1)) {
+					System.out.println("xMove is valid");
+					isMovingRight = true;
+					if(yMove == (yOrigin + 1)) {
+						System.out.println("yMove is valid");
+						return true;
+						
+					} else {
+						System.out.println("yMove is invalid");
+						return false;
+					}
+				} else if(xMove == (xOrigin - 1)) {
+						System.out.println("xMove is Valid");
+						isMovingRight = false;
+						if(yMove == (yOrigin + 1)) {
+							System.out.println("yMove is valid");
+							return true;
+						}
+						else {
+							System.out.println("yMove is invalid");
+							return false;
+						}
+					} else {
+						System.out.println("xMove is Invalid");
+				}
+				
+			} else {
+				System.out.println("You're moving in the wrong direction, idiot!");
+				return false;
+			}
+		case 2:
+			if(!isMovingDown) {
+			if(xMove == (xOrigin + 1)) {
+				System.out.println("xMove is valid");
+				isMovingRight = true;
+				if(yMove == (yOrigin - 1)) {
+					System.out.println("yMove is valid");
+					return true;
+				} else {
+					System.out.println("yMove is invalid");
+					return false;
+				}
+			} else if (xMove == (xOrigin - 1)) {
+				System.out.println("xMove is valid");
+				isMovingRight = false;
+				if(yMove == (yOrigin - 1)) {
+					System.out.println("yMove is valid");
+					return true;
+				} else {
+					System.out.println("yMove is invalid");
+					return false;
+				}
+			} else {
+				System.out.println("xMove is invalid");
+			}
+
+		
+		} else {
+			System.out.println("You're moving in the wrong direction, idiot!");
+			return false;
+		}
+		case 3:
+		case 4:
+			if(isMovingDown) {
+				if(xMove == (xOrigin + 1)) {
+					System.out.println("xMove is valid");
+					isMovingRight = true;
+					if(yMove == (yOrigin + 1)) {
+						System.out.println("yMove is valid");
+						return true;
+						
+					} else {
+						System.out.println("yMove is invalid");
+						return false;
+					}
+				} else if(xMove == (xOrigin - 1)) {
+						System.out.println("xMove is Valid");
+						isMovingRight = false;
+						if(yMove == (yOrigin + 1)) {
+							System.out.println("yMove is valid");
+							return true;
+						}
+						else {
+							System.out.println("yMove is invalid");
+							return false;
+						}
+					} else {
+						System.out.println("xMove is Invalid");
+				}
+				
+			}
+			
+			if(!isMovingDown) {
+				if(xMove == (xOrigin + 1)) {
+					System.out.println("xMove is valid");
+					isMovingRight = true;
+					if(yMove == (yOrigin - 1)) {
+						System.out.println("yMove is valid");
+						return true;
+					} else {
+						System.out.println("yMove is invalid");
+						return false;
+					}
+				} else if (xMove == (xOrigin - 1)) {
+					System.out.println("xMove is valid");
+					isMovingRight = false;
+					if(yMove == (yOrigin - 1)) {
+						System.out.println("yMove is valid");
+						return true;
+					} else {
+						System.out.println("yMove is invalid");
+						return false;
+					}
+				} else {
+					System.out.println("xMove is invalid");
+				}
+
+			
+			} 	
+		
+		
+		
+		
+		}		
+		
+		/*
 		if((board.getBoard()[yOrigin][xOrigin] == 1) && (isMovingDown)) {
 		
 		
@@ -398,44 +529,17 @@ if(isMovingRight) {
 			
 		}
 		
-	
+	*/
 		return false;
 	}
-	
-	public boolean isDoubleJumpValid(Checker checker, Move move) {
-		
-	switch(checker.getType()) {
-	case 1:
-		if(board.getBoard()[move.getyMove() + 1][move.getxMove() + 1] == 2 )
-		break;
-	case 2:
-		break;
-	case 3:
-		break;
-	case 4:
-		break;
 
-	
-	}
-		
-		
-		
-		
-		
-		
-	}
-	
-	
-	
-	
-	
-	
 	
 	public  Move movePiece(int turn) {
 		boolean error = false;
 		String moveInput;
 		String origin;
 		boolean isCorrectTurn = false;
+		Scanner keyboard = new Scanner(System.in);
 
 		do {
 			do {
@@ -457,7 +561,7 @@ if(isMovingRight) {
 			int convertedXOrigin = convertXPosition(xOrigin);
 			yOrigin -= 1;
 			
-		if(board.getBoard()[yOrigin][convertedXOrigin] == turn) {
+		if((board.getBoard()[yOrigin][convertedXOrigin] == turn) || (board.getBoard()[yOrigin][convertedXOrigin] == (turn + 2))) {
 			isCorrectTurn = true;
 			Checker checker = validatePiece(convertedXOrigin, yOrigin);	
 			do {
@@ -471,7 +575,7 @@ if(isMovingRight) {
 					System.out.println("No errors found with input move");
 				}
 			} while(error);
-
+			
 			String xMove = moveInput.substring(0, 1);
 			int yMove = Integer.parseInt(moveInput.substring(1,2));
 			int convertedXMove = convertXPosition(xMove);
@@ -493,10 +597,12 @@ if(isMovingRight) {
 								//means the piece is moving right and down
 								 move = new Move(convertedXOrigin, yOrigin, convertedXMove + 1, yMove + 1);
 								model.moves.add(move);	
+								removeTakenPiece(convertedXMove, yMove);
 							} else {
 								//means the piece is moving right, but up
 								 move = new Move(convertedXOrigin, yOrigin, convertedXMove + 1, yMove - 1);
 								model.moves.add(move);
+								removeTakenPiece(convertedXMove, yMove);
 							}
 							
 						} else {
@@ -504,15 +610,17 @@ if(isMovingRight) {
 								//means its moving left and down
 								move = new Move(convertedXOrigin, yOrigin, convertedXMove - 1, yMove + 1);
 								model.moves.add(move);
+								removeTakenPiece(convertedXMove, yMove);
 							} else {
 								//means it's moving left and up
 								move = new Move(convertedXOrigin, yOrigin, convertedXMove - 1, yMove - 1);
 								model.moves.add(move);	
+								removeTakenPiece(convertedXMove, yMove);
 							}
 							
 						}
 					}
-					isDoubleJumpValid(checker, move);
+				
 				}
 			} else {
 				System.out.println("Space isn't taken");
@@ -542,7 +650,7 @@ if(isMovingRight) {
 				System.out.println("NullPointerException - Error");
 				return null;
 			}
-		removeTakenPiece(convertedXMove, yMove);
+		
 		if(canBeKing(checker, move)) {
 			checker = convertToKing(checker, move);
 			model.updateChecker(move, checker, turn);
@@ -637,7 +745,6 @@ if(isMovingRight) {
 		 
 			 if(checker.getType() == 2) {
 				 if(move.getyMove() == 0) {
-					 checker.setType(4);
 					 System.out.println("Checker is becoming a king");
 					 return true;
 					 
@@ -690,7 +797,7 @@ int endGameCheck = 0;
 	boolean endgame = false;
 	
 	controller.populateModel();
-//	controller.outputPieces();
+	controller.outputPieces();
 	controller.printBoard();
 	
 	do {
@@ -698,6 +805,9 @@ int endGameCheck = 0;
 			try {
 			
 			controller.movePiece(turn);
+			controller.outputPieces();
+			controller.printList();
+			controller.moveThroughList();
 			turn =	controller.nextTurn(turn);
 			
 			} catch(NullPointerException e) {
@@ -716,7 +826,7 @@ int endGameCheck = 0;
 	
 	controller.outputPieces();
 	controller.printList();
-	//controller.moveThroughList();
+	
 	
 }
 
