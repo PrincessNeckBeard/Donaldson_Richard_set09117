@@ -685,7 +685,7 @@ if(isMovingRight) {
 	
 	}
 
-	//TODO Update this so that White can be updated and move as well
+
 	public void updateBoard(Move move) {
 		try {
 		int type = board.getBoard()[move.getyOrigin()][move.getxOrigin()];
