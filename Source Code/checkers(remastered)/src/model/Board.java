@@ -3,7 +3,7 @@ package model;
 import java.util.Arrays;
 
 public class Board {
-/*
+
 	int[][] board = new int[][]{
 		{0, 0, 0, 0, 0, 0, 0, 0 },
 		{0, 0, 0, 0, 0, 0, 0, 0 },
@@ -14,8 +14,8 @@ public class Board {
 		{0, 0, 0, 0, 0, 0, 0, 0 },
 		{0, 0, 0, 0, 0, 0, 0, 0 }
 	};
-*/
-	
+
+	/*
 	int[][] board = new int[][]{
 		{0, 1, 0, 1, 0, 1, 0, 1 },
 		{1, 0, 1, 0, 1, 0, 1, 0 },
@@ -26,7 +26,7 @@ public class Board {
 		{0, 2, 0, 2, 0, 2, 0, 2 },
 		{2, 0, 2, 0, 2, 0, 2, 0 }
 	};
-	
+	*/
 	public Board() {
 		super();
 

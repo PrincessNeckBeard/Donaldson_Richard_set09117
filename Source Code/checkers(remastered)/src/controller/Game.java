@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.Scanner;
 
 import model.Board;
@@ -209,10 +210,10 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 
 	public boolean isMovingRight(int xOrigin, int yOrigin, int xMove, int yMove) {
 		if(xMove == (xOrigin + 1)) {
-			System.out.println("IsMovingRight is true");
+			//System.out.println("IsMovingRight is true");
 			return true;
 		} else {
-			System.out.println("isMovingRight is false");
+			//System.out.println("isMovingRight is false");
 			return false;
 		}
 		
@@ -220,10 +221,10 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 	
 	public boolean isMovingDown(int xOrigin, int yOrigin, int xMove, int yMove) {
 		if(yMove == (yOrigin + 1)) {
-			System.out.println("IsMovingDown is true");
+		//	System.out.println("IsMovingDown is true");
 			return true;
 		} else {
-			System.out.println("IsMovingDown is false");
+		//	System.out.println("IsMovingDown is false");
 			return false;
 		}
 	}
@@ -237,12 +238,12 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		if(isMovingRight) {
 			//checks if moving down and right
 			if(board.getBoard()[yMove + 1][xMove + 1] == 0 ) {
-				System.out.println("Moving down and right. Space is empty");
+			//	System.out.println("Moving down and right. Space is empty");
 				return true;
 			}
 		} else {
 			if(board.getBoard()[yMove + 1][xMove - 1] == 0 ) {
-				System.out.println("Moving down and left. Space is empty");
+			//	System.out.println("Moving down and left. Space is empty");
 				return true;
 			}
 			
@@ -252,12 +253,12 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		if(isMovingRight) {
 			//checks moving up and right
 			if(board.getBoard()[yMove - 1][xMove + 1] == 0) {
-				System.out.println("Moving up and right. Space is empty");
+				//System.out.println("Moving up and right. Space is empty");
 				return true;
 			}
 		} else {
 			if(board.getBoard()[yMove - 1][xMove - 1] == 0) {
-				System.out.println("Moving up and left. Space is empty");
+				//System.out.println("Moving up and left. Space is empty");
 				return true;
 			}
 		}
@@ -267,23 +268,23 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 if(isMovingRight) {
 //checks to see if space behind the piece is empty	
 	if(board.getBoard()[yMove + 1][xMove + 1] == 0) {
-		System.out.println("Jump is valid - space empty");
+	//	System.out.println("Jump is valid - space empty");
 		return true;
 	} else {
-		System.out.println("Space is not empty");
+	//	System.out.println("Space is not empty");
 		return false;
 	}
 } else {
 	if(board.getBoard()[yMove + 1][xMove - 1] == 0) {
-		System.out.println("Jump is valid");
+		//System.out.println("Jump is valid");
 		return true;
 	} else {
-		System.out.println("Jump is invalid");
+		//System.out.println("Jump is invalid");
 	}
 }
 		return false;
 		} catch (IndexOutOfBoundsException e) {
-			System.out.println("Index Out of Bounds - Move invalid");
+			//System.out.println("Index Out of Bounds - Move invalid");
 			return false;
 		}
 	}	
@@ -292,10 +293,10 @@ if(isMovingRight) {
 
 
 		if((board.getBoard()[yValue][xValue] == 1) || (board.getBoard()[yValue][xValue] == 3)) {
-			System.out.println("Piece is black");
+			//System.out.println("Piece is black");
 			return true;
 		} else if ((board.getBoard()[yValue][xValue] == 2) || (board.getBoard()[yValue][xValue] == 4)) {
-			System.out.println("Piece is white");
+			//System.out.println("Piece is white");
 			return true;
 		} else {
 			return false;
@@ -311,19 +312,19 @@ if(isMovingRight) {
 		
 		if((attackingPiece == 1) || (attackingPiece == 3)) {
 			if((piece == 2) || (piece == 4)) {
-				System.out.println("Piece is the enemy");
+			//	System.out.println("Piece is the enemy");
 				return true;
 			} else {
-				System.out.println("Piece is not the enemy");
+			//	System.out.println("Piece is not the enemy");
 				
 			}
 				
 		} else {
 			if((piece == 1) || (piece == 3)) {
-				System.out.println("Piece is the enemy");
+			//	System.out.println("Piece is the enemy");
 				return true;
 			} else {
-				System.out.println("Piece is not the enemy");
+			//	System.out.println("Piece is not the enemy");
 			}
 		}
 		return false;
@@ -338,29 +339,29 @@ if(isMovingRight) {
 		case 1:
 			if(isMovingDown) {
 				if(xMove == (xOrigin + 1)) {
-					System.out.println("xMove is valid");
+				//	System.out.println("xMove is valid");
 					isMovingRight = true;
 					if(yMove == (yOrigin + 1)) {
-						System.out.println("yMove is valid");
+				//		System.out.println("yMove is valid");
 						return true;
 						
 					} else {
-						System.out.println("yMove is invalid");
+				//		System.out.println("yMove is invalid");
 						return false;
 					}
 				} else if(xMove == (xOrigin - 1)) {
-						System.out.println("xMove is Valid");
+				//		System.out.println("xMove is Valid");
 						isMovingRight = false;
 						if(yMove == (yOrigin + 1)) {
-							System.out.println("yMove is valid");
+				//			System.out.println("yMove is valid");
 							return true;
 						}
 						else {
-							System.out.println("yMove is invalid");
+				//			System.out.println("yMove is invalid");
 							return false;
 						}
 					} else {
-						System.out.println("xMove is Invalid");
+				//		System.out.println("xMove is Invalid");
 				}
 				
 			} else {
@@ -370,27 +371,27 @@ if(isMovingRight) {
 		case 2:
 			if(!isMovingDown) {
 			if(xMove == (xOrigin + 1)) {
-				System.out.println("xMove is valid");
+			//	System.out.println("xMove is valid");
 				isMovingRight = true;
 				if(yMove == (yOrigin - 1)) {
-					System.out.println("yMove is valid");
+			//		System.out.println("yMove is valid");
 					return true;
 				} else {
-					System.out.println("yMove is invalid");
+		//			System.out.println("yMove is invalid");
 					return false;
 				}
 			} else if (xMove == (xOrigin - 1)) {
-				System.out.println("xMove is valid");
+			//	System.out.println("xMove is valid");
 				isMovingRight = false;
 				if(yMove == (yOrigin - 1)) {
-					System.out.println("yMove is valid");
+			//		System.out.println("yMove is valid");
 					return true;
 				} else {
-					System.out.println("yMove is invalid");
+			//		System.out.println("yMove is invalid");
 					return false;
 				}
 			} else {
-				System.out.println("xMove is invalid");
+		//		System.out.println("xMove is invalid");
 			}
 
 		
@@ -402,56 +403,56 @@ if(isMovingRight) {
 		case 4:
 			if(isMovingDown) {
 				if(xMove == (xOrigin + 1)) {
-					System.out.println("xMove is valid");
+		//			System.out.println("xMove is valid");
 					isMovingRight = true;
 					if(yMove == (yOrigin + 1)) {
-						System.out.println("yMove is valid");
+		//				System.out.println("yMove is valid");
 						return true;
 						
 					} else {
-						System.out.println("yMove is invalid");
+			//			System.out.println("yMove is invalid");
 						return false;
 					}
 				} else if(xMove == (xOrigin - 1)) {
-						System.out.println("xMove is Valid");
+			//			System.out.println("xMove is Valid");
 						isMovingRight = false;
 						if(yMove == (yOrigin + 1)) {
-							System.out.println("yMove is valid");
+			//				System.out.println("yMove is valid");
 							return true;
 						}
 						else {
-							System.out.println("yMove is invalid");
+			//				System.out.println("yMove is invalid");
 							return false;
 						}
 					} else {
-						System.out.println("xMove is Invalid");
+			//			System.out.println("xMove is Invalid");
 				}
 				
 			}
 			
 			if(!isMovingDown) {
 				if(xMove == (xOrigin + 1)) {
-					System.out.println("xMove is valid");
+			//		System.out.println("xMove is valid");
 					isMovingRight = true;
 					if(yMove == (yOrigin - 1)) {
-						System.out.println("yMove is valid");
+			//			System.out.println("yMove is valid");
 						return true;
 					} else {
-						System.out.println("yMove is invalid");
+			//			System.out.println("yMove is invalid");
 						return false;
 					}
 				} else if (xMove == (xOrigin - 1)) {
-					System.out.println("xMove is valid");
+			//		System.out.println("xMove is valid");
 					isMovingRight = false;
 					if(yMove == (yOrigin - 1)) {
-						System.out.println("yMove is valid");
+			//			System.out.println("yMove is valid");
 						return true;
 					} else {
-						System.out.println("yMove is invalid");
+			//			System.out.println("yMove is invalid");
 						return false;
 					}
 				} else {
-					System.out.println("xMove is invalid");
+			//		System.out.println("xMove is invalid");
 				}
 
 			
@@ -573,7 +574,7 @@ if(isMovingRight) {
 					error = true;
 				} else {
 					error = false;
-					System.out.println("No errors found with input move");
+				//	System.out.println("No errors found with input move");
 				}
 			} while(error);
 			
@@ -701,7 +702,7 @@ if(isMovingRight) {
 	//checks to see if the piece exists
 
 	public void removeTakenPiece(int xPiece, int yPiece) {
-	
+		System.out.println("Removing Piece");
 		Checker checker = model.findChecker(xPiece,  yPiece);
 		if((checker.getType() == 1) || (checker.getType() == 3)) {
 			model.blackPieces.remove(checker);
@@ -789,30 +790,31 @@ if(isMovingRight) {
 	}
 	 
 	public LinkedList<Move> getPossibleMoves() {
-
+		AIPossibleMoves.clear();
 		int xOrigin = 0, yOrigin = 0, xMove1 = 0, xMove2 = 0, yMove1 = 0, yMove2 = 0;
 		boolean isMovingRight;
 		Move move = null;	
-			
+			int type = 0;
 			for(Checker checker: model.whitePieces) {
 				
 				xOrigin = checker.getCurrentXPosition();
 				yOrigin = checker.getCurrentYPosition();
 				xMove1 = (checker.getCurrentXPosition() - 1);
 				xMove2 = (checker.getCurrentXPosition() + 1);
-				yMove1 = (checker.getCurrentXPosition() - 1);
-				
-				
-				switch(checker.getType()) {
+				yMove1 = (checker.getCurrentYPosition() - 1);
+				type = checker.getType();
+				switch(type) {
 				case 2:
-					
 
-					
-					
-					
+					if((xMove1 < 0) || (yMove1 <0)) {
+						//continue;
+					} else {
 					if(isMoveValid(xOrigin,yOrigin, xMove1, yMove1, false, false )) {
-						if(isSpaceTaken(xMove1,yMove1)) {
-							System.out.println("Space is Taken");
+						if(!isSpaceTaken(xMove1,yMove1)) {
+							//System.out.println("Space is not Taken");
+							move = new Move(xOrigin, yOrigin, xMove1, yMove1);
+							AIPossibleMoves.add(move);
+						} else {
 							if(isPieceEnemy(xMove1,yMove1,checker,2)) {
 								if(isJumpValid(xOrigin, yOrigin, xMove1, yMove1, false, false)) {
 									move = new Move(xOrigin, yOrigin, xMove1, yMove1);
@@ -820,25 +822,42 @@ if(isMovingRight) {
 								}
 							}
 						}
+						}
 					}
-					
+                            
+					if((xMove2 > 7) || (yMove1 < 0)) {
+						//continue;
+					} else {
+				
 					if(isMoveValid(xOrigin,yOrigin, xMove2, yMove1, true, false )) {
-						if(isSpaceTaken(xMove2,yMove1)) {
-							System.out.println("Space is Taken");
+						if(!isSpaceTaken(xMove2,yMove1)) {
+							// System.out.println("Space is not Taken");
+							move = new Move(xOrigin, yOrigin, xMove2, yMove1);
+							AIPossibleMoves.add(move);	
+						} else {
 							if(isPieceEnemy(xMove2,yMove1,checker,2)) {
 								if(isJumpValid(xOrigin, yOrigin, xMove2, yMove1, true, false)) {
 									move = new Move(xOrigin, yOrigin, xMove2, yMove1);
 									AIPossibleMoves.add(move);	
+								
 								}
 							}
 						}
-					}
-					break;
+					}	
+				}
+				break;
+					
 				case 4:
 					//Moving up and left    isMovingRight,IsMovingDown
+					if((xMove1 <0) || (yMove1 < 0)) {
+						continue;
+					} else {
 					if(isMoveValid(xOrigin,yOrigin, xMove1, yMove1, false, false )) {
-						if(isSpaceTaken(xMove1,yMove1)) {
-							System.out.println("Space is Taken");
+						if(!isSpaceTaken(xMove1,yMove1)) {
+						//	System.out.println("Space is not Taken");
+							move = new Move(xOrigin, yOrigin, xMove1, yMove1);
+							AIPossibleMoves.add(move);	
+						} else {
 							if(isPieceEnemy(xMove1,yMove1,checker,2)) {
 								if(isJumpValid(xOrigin, yOrigin, xMove1, yMove1, false, false)) {
 									move = new Move(xOrigin, yOrigin, xMove1, yMove1);
@@ -847,10 +866,18 @@ if(isMovingRight) {
 							}
 						}
 					}
+					}
+				
+				if((xMove2 > 7) || (yMove1 < 0)) {
+					continue;
+				} else {
 					//moving up and right
 					if(isMoveValid(xOrigin,yOrigin, xMove2, yMove1, true, false )) {
-						if(isSpaceTaken(xMove2,yMove1)) {
-							System.out.println("Space is Taken");
+						if(!isSpaceTaken(xMove2,yMove1)) {
+						//	System.out.println("Space is not Taken");
+							move = new Move(xOrigin, yOrigin, xMove2, yMove1);
+							AIPossibleMoves.add(move);	
+						} else {
 							if(isPieceEnemy(xMove2,yMove1,checker,2)) {
 								if(isJumpValid(xOrigin, yOrigin, xMove2, yMove1, true, false)) {
 									move = new Move(xOrigin, yOrigin, xMove2, yMove1);
@@ -859,10 +886,18 @@ if(isMovingRight) {
 							}
 						}
 					}
+				}
+				
+				if((xMove1 < 0) || (yMove2 > 7)) {
+					continue;
+				} else {
 					//moving down and left isMovingRight,IsMovingDown
 					if(isMoveValid(xOrigin,yOrigin, xMove1, yMove2, false, true )) {
-						if(isSpaceTaken(xMove1,yMove2)) {
-							System.out.println("Space is Taken");
+						if(!isSpaceTaken(xMove1,yMove2)) {
+						//	System.out.println("Space is not Taken");
+							move = new Move(xOrigin, yOrigin, xMove1, yMove2);
+							AIPossibleMoves.add(move);	
+						} else {
 							if(isPieceEnemy(xMove1,yMove2,checker,2)) {
 								if(isJumpValid(xOrigin, yOrigin, xMove1, yMove2, false, true)) {
 									move = new Move(xOrigin, yOrigin, xMove1, yMove2);
@@ -871,10 +906,19 @@ if(isMovingRight) {
 							}
 						}
 					}
+				}
+				
+				if((xMove2 > 7) || (yMove2 > 7)) {
+					continue;
+				} else {
+				
 					//moving down and right isMovingRight,IsMovingDown
 					if(isMoveValid(xOrigin,yOrigin, xMove2, yMove2, true, true )) {
-						if(isSpaceTaken(xMove2,yMove2)) {
-							System.out.println("Space is Taken");
+						if(!isSpaceTaken(xMove2,yMove2)) {
+						//	System.out.println("Space is not Taken");
+							move = new Move(xOrigin, yOrigin, xMove2, yMove2);
+							AIPossibleMoves.add(move);	
+						} else {
 							if(isPieceEnemy(xMove2,yMove2,checker,2)) {
 								if(isJumpValid(xOrigin, yOrigin, xMove2, yMove2, true, true)) {
 									move = new Move(xOrigin, yOrigin, xMove2, yMove2);
@@ -883,60 +927,172 @@ if(isMovingRight) {
 							}
 						}
 					}
-					break;
-					default:
-						System.out.println("Error somewhere in AI Switch");
-						break;
+				}
+					
+					
+				break;	
 				}	
 			
-		}
+			}
+
 			return AIPossibleMoves;
 			
 		}
 	
-	public void outputPossibleMoves(LinkedList<Move> AIPossibleMoves) {
+	public void outputPossibleMoves() {
+		System.out.println("###########POSSIBLE MOVES ####################");
 		for(Move move: AIPossibleMoves) {
 			System.out.println(move.toString());
 		}
+		System.out.println("#############################################");
 	}
+	
+	public void AIMakeMove() {
+		
+		Random randomizer = new Random();
+		int index = randomizer.nextInt(AIPossibleMoves.size());
+		Move move = AIPossibleMoves.get(index);
+		Checker checker = model.findChecker(move.getxOrigin(), move.getyOrigin());
+		int xChange = (move.getxOrigin() - move.getxMove());
+		int yChange = (move.getyOrigin() - move.getyMove());
+		
+		int xMoveNew = 0;
+		int yMoveNew = 0;
+		
+		
+		
+		
+		
+		if(board.getBoard()[move.getyMove()][move.getxMove()] == 0) {
+			//do nothing
+		} else {
+			//moving down
+			if(yChange < 0) {
+				//moving right
+				if(xChange < 0) {
+					removeTakenPiece(move.getxMove(), move.getyMove());
+					xMoveNew = move.getxMove() + 1;
+					yMoveNew = move.getyMove() + 1;
+					move.setxMove(xMoveNew);
+					move.setyMove(yMoveNew);
+					
+					
+				} else {
+					
+					//moving left
+					
+					removeTakenPiece(move.getxMove(), move.getyMove());
+					xMoveNew = move.getxMove() - 1;
+					yMoveNew = move.getyMove() + 1;
+					move.setxMove(xMoveNew);
+					move.setyMove(yMoveNew);
+				}
+			} else {
+				//moving up
+				if(xChange < 0) {
+					//moving right
+					removeTakenPiece(move.getxMove(), move.getyMove());
+					xMoveNew = move.getxMove() + 1;
+					yMoveNew = move.getyMove() - 1;
+					move.setxMove(xMoveNew);
+					move.setyMove(yMoveNew);
+				} else {
+					//moving left 
+					removeTakenPiece(move.getxMove(), move.getyMove());
+					xMoveNew = move.getxMove() - 1;
+					yMoveNew = move.getyMove() - 1;
+					move.setxMove(xMoveNew);
+					move.setyMove(yMoveNew);
+				}
+				
+			}
+		}
+		
+		System.out.println("New Move is: " + xMoveNew + "," + yMoveNew);
+		if(canBeKing(checker, move)) {
+			checker = convertToKing(checker, move);
+			model.updateChecker(move, checker, 2);
+			
+			printBoard();
+			return;
+		}
+		model.updateChecker(move, checker, 2);
+		System.out.println("AI - DEBUGGING");
+		System.out.println("Origin Piece: " + move.getxOrigin() + "," + move.getyOrigin());
+		System.out.println("Move Position: " + move.getxMove() + "," + move.getyMove());
+		updateBoard(move);
+		printBoard();
+		
+	}
+
+
+	public static void clearScreen() {  
+	    System.out.print("\033[H\033[2J");  
+	    System.out.flush();  
+	   } 
 	
 	
 	
 	
 public static void main(String args[]) {
 	Game controller = new Game();
-	AI AIController = new AI();
 int endGameCheck = 0;
 	int turn = 1;
 	boolean endgame = false;
 	
 	controller.populateModel();
-	controller.outputPieces();
-	controller.printBoard();
-	LinkedList<Move> AIMoves = controller.getPossibleMoves();
-	controller.outputPossibleMoves(AIMoves);
-	do {
+	//controller.outputPieces();
+//	controller.printBoard();
+//	controller.outputPossibleMoves();
+//	controller.AIMakeMove();
+//	controller.printBoard();
+//	controller.movePiece(turn);
+//	controller.outputPossibleMoves();
 	
-			try {
-				
-			//controller.movePiece(turn);
-			//controller.outputPieces();
-			//controller.printList();
-	//		controller.moveThroughList();
-			//turn =	controller.nextTurn(turn);
+	do {
+		try {
+			controller.getPossibleMoves();
+			controller.outputPossibleMoves();
+			controller.AIMakeMove();
 			
-			} catch(NullPointerException e) {
-				System.out.println("Try catch in Main caught this");
-				
-			}
+			controller.movePiece(turn);
 			
+		
+			
+		} catch(NullPointerException e) {
+			System.out.println("Null Pointer Exception - Try Catch Main");
+		}
+		
 		endGameCheck = controller.hasBlackWon();
 		
 		if(endGameCheck != 0) {
 			endgame = true;
-			
-		} 
-	}while(!endgame);
+		}
+	} while(!endgame);
+	
+	
+//	do {
+//	
+//			try {
+//				
+//			//controller.movePiece(turn);
+//			//controller.outputPieces();
+//			//controller.printList();
+//	//		controller.moveThroughList();
+//			//turn =	controller.nextTurn(turn);
+//			
+//			} catch(NullPointerException e) {
+//				System.out.println("Try catch in Main caught this");
+//				
+//			}
+//			
+//		endGameCheck = controller.hasBlackWon();
+//		
+//		if(endGameCheck != 0) {
+//			endgame = true;
+//			
+//		} 
+//	}while(!endgame);
 	
 	
 	controller.outputPieces();

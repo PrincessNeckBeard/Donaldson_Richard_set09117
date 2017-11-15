@@ -10,7 +10,7 @@ public class Model {
 	 public LinkedList<Move> copy = new LinkedList<Move>();
 	
 	public void populate() {
-		
+		/*
 		blackPieces.add(new Checker(1,1,0));
 		blackPieces.add(new Checker(1,3,0));
 		blackPieces.add(new Checker(1,5,0));
@@ -24,6 +24,7 @@ public class Model {
 		blackPieces.add(new Checker(1,5,2));
 		blackPieces.add(new Checker(1,7,2));
 		
+		
 		whitePieces.add(new Checker(2,0,5));
 		whitePieces.add(new Checker(2,2,5));
 		whitePieces.add(new Checker(2,4,5));
@@ -36,11 +37,11 @@ public class Model {
 		whitePieces.add(new Checker(2,2,7));
 		whitePieces.add(new Checker(2,4,7));
 		whitePieces.add(new Checker(2,6,7));
+		*/
 		
-		/*
 		blackPieces.add(new Checker(3,3,3));
 		whitePieces.add(new Checker(4,1,3));
-		*/
+		
 		
 		
 		
@@ -89,7 +90,7 @@ public class Model {
 			}
 		} else if (turn == 2) {
 			for(Checker c: whitePieces) {
-				System.out.println("CheckerXPos " + c.getCurrentXPosition());
+			//	System.out.println("CheckerXPos " + c.getCurrentXPosition());
 				if((checker.getCurrentXPosition() == c.getCurrentXPosition()) && (checker.getCurrentYPosition() == c.getCurrentYPosition())) {
 					checker.setCurrentXPosition(move.getxMove());
 					checker.setCurrentYPosision(move.getyMove());
