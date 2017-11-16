@@ -1,9 +1,13 @@
 package model;
 
 import java.util.Arrays;
-
-public class Board {
 /*
+ * This Class stores information about the board
+ */
+public class Board {
+
+	//used for testing Kings
+	/*
 	int[][] board = new int[][]{
 		{0, 0, 0, 0, 0, 0, 0, 0 },
 		{0, 0, 0, 0, 0, 0, 0, 0 },
@@ -15,7 +19,7 @@ public class Board {
 		{0, 0, 0, 0, 0, 0, 0, 0 }
 	};
 */
-	
+	//the initial state of the board
 	int[][] board = new int[][]{
 		{0, 1, 0, 1, 0, 1, 0, 1 },
 		{1, 0, 1, 0, 1, 0, 1, 0 },
@@ -27,13 +31,13 @@ public class Board {
 		{2, 0, 2, 0, 2, 0, 2, 0 }
 	};
 	
+	//constructor for the board
 	public Board() {
 		super();
 
-		this.board = board;
 	}
 	
-
+//getters and setters
 	public int[][] getBoard() {
 		return board;
 	}
@@ -41,7 +45,7 @@ public class Board {
 		this.board = board;
 	}
 
-
+//toString
 	@Override
 	public String toString() {
 		return "Board [board=" + Arrays.toString(board) + "]";

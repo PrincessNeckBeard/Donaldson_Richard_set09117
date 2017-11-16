@@ -1,16 +1,28 @@
 package model;
-
+/*
+ * This class is used to create the Pieces for the game
+ */
 public class Checker {
-
+/*
+ * type: 
+ * 1: BLACK 
+ * 2: WHITE
+ * 3: BLACK KING
+ * 4: WHITE KING
+ */
 	int type;
 	int currentXPosition;
 	int currentYPosition;
+	
+	
+	//Constructor for the class
 	public Checker(int type, int currentXPosition, int currentYPosition) {
 		super();
 		this.type = type;
 		this.currentXPosition = currentXPosition;
 		this.currentYPosition = currentYPosition;
 	}
+	//Getters and Setters
 	public int getType() {
 		return type;
 	}
@@ -29,7 +41,7 @@ public class Checker {
 	public void setCurrentYPosision(int currentYPosition) {
 		this.currentYPosition = currentYPosition;
 	}
-	
+	//ToString
 	@Override
 	public String toString() {
 		

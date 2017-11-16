@@ -1,5 +1,10 @@
 package model;
 
+
+/*
+ * This class is used to create the Move object used to store the 
+ * information about moves used for the Undo/Redo feature
+ */
 public class Move {
 
 	int xOrigin;
@@ -8,7 +13,7 @@ public class Move {
 	int xMove;
 	int yMove;
 	
-	Checker checker;
+	//Constructor for the Move Class
 	public Move(int xOrigin, int yOrigin, int xMove, int yMove) {
 		super();
 		this.xOrigin = xOrigin;
@@ -16,6 +21,8 @@ public class Move {
 		this.xMove = xMove;
 		this.yMove = yMove;
 	}
+	
+	//Getters and Setters
 	public int getxOrigin() {
 		return xOrigin;
 	}
@@ -40,6 +47,8 @@ public class Move {
 	public void setyMove(int yMove) {
 		this.yMove = yMove;
 	}
+	
+	//toString
 	@Override
 	public String toString() {
 		return "Move [xOrigin=" + xOrigin + ", yOrigin=" + yOrigin + ", xMove=" + xMove + ", yMove=" + yMove + "]";

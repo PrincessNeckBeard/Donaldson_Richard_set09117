@@ -8,21 +8,26 @@ import model.Board;
 import model.Checker;
 import model.Model;
 import model.Move;
-
+/*
+ * This Class is used to communicate between the Model and View Classes.
+ * 
+ */
 public class Game {
-
+	//Creates a model object for the controller to use
 	Model model = new Model();
+	//Creates a board object for the controller to use
 	Board board = new Board();
 	int blackPieces = 12;
 	int whitePieces = 12;
+	//LinkedList used to store the possible moves that the AI can make during their turn
 	LinkedList<Move> AIPossibleMoves = new LinkedList<Move>();
 	
-	 protected void populateModel() {
+	 public void populateModel() {
 		model.populate();
 		
 	}
 	
-
+//Used to output the board to the console
 	public void printBoard() {
 String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		for(int k = 0; k <8; k++) {
@@ -43,7 +48,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		System.out.println();
 	}
 	
-	
+	//Used to output the list of moves that have been played to the console for testing
 	public void printList() {
 		for(Move m: model.moves) {
 			System.out.println(m.toString());
@@ -53,7 +58,8 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		}
 		
 	}
-	
+	//used to move through the list of moves that have been played
+	//This is the Undo/Redo feature of the game
 	public void moveThroughList() {
 		int choice = 0;
 		int i = 0;
@@ -70,6 +76,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		
 	do {
 		choice = input.nextInt();
+		//Undo Move
 		if (choice == 1) {
 			
 			i = (model.moves.size() - 1); 
@@ -85,7 +92,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 			 System.out.println("Undo'd move ");
 			printList();
 			
-
+			//Redo Move
 		} else if (choice == 2) {
 
 			j = (model.copy.size() - 1);
@@ -107,11 +114,11 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 			}
 		} 
 		
-		
+		//Exit method
 	} while(choice != 3);
 		input.close();
 	}
-	
+	//Converts the Co-ordinate input into a value the board array can use
 	public int convertXPosition(String xPosition) {
 		xPosition = xPosition.toUpperCase();
 		int xValue;
@@ -147,7 +154,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		return xValue;
 		
 	}
-	
+	//validates the users input
 	public static Boolean validateInput(String input) {
 		String xInput = input.substring(0,1);
 
@@ -164,7 +171,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 			return true; 
 			}
 		}
-		
+		//checks to see if the piece exists
 	public Checker validatePiece(int xValue, int yValue) {
 		
 
@@ -174,40 +181,8 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 	
 	
 
-//	public boolean validateMove(int xOrigin, int yOrigin, int xMove, int yMove) {
-//		boolean isMovingRight = false;
-//		boolean isSpaceTaken = false;
-//		boolean isMoveValid = false;
-//		boolean isJumpValid = false;
-//		boolean isMovingDown = false;
-//		
-//		isSpaceTaken = isSpaceTaken(xMove,yMove);
-//		isMovingRight = isMovingRight(xOrigin, yOrigin, xMove, yMove);
-//		isMovingDown = isMovingDown(xOrigin, yOrigin, xMove, yMove);
-//		isMoveValid = isMoveValid(xOrigin, yOrigin, xMove, yMove, isMovingRight, isMovingDown);
-//		isJumpValid = isJumpValid(xOrigin, yOrigin, xMove, yMove, isMovingRight, isMovingDown);
-//		
-//		if(isMoveValid) {
-//			if(isSpaceTaken) {
-//				if(isJumpValid) {
-//					System.out.println("Jump is valid");
-//					return true;
-//				} else {
-//					System.out.println("Jump is invalid - Move is invalid");
-//					return false;
-//				}
-//				
-//			} else {
-//				System.out.println("Space is empty");
-//				return true;
-//			}
-//		} else {
-//			System.out.println("Move isn't Valid");
-//			return false;
-//		}
-//	
-//	}
 
+//Used to check if the Piece is trying to move Right
 	public boolean isMovingRight(int xOrigin, int yOrigin, int xMove, int yMove) {
 		if(xMove == (xOrigin + 1)) {
 			//System.out.println("IsMovingRight is true");
@@ -218,7 +193,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		}
 		
 	}
-	
+	//Used to check if the Piece is trying to move Down
 	public boolean isMovingDown(int xOrigin, int yOrigin, int xMove, int yMove) {
 		if(yMove == (yOrigin + 1)) {
 		//	System.out.println("IsMovingDown is true");
@@ -229,7 +204,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		}
 	}
 	
-
+//Checks to see if the Jump is valid
 	public boolean isJumpValid(int xOrigin, int yOrigin, int xMove, int yMove, boolean isMovingRight, boolean isMovingDown) {
 
 		try {
@@ -288,7 +263,8 @@ if(isMovingRight) {
 			return false;
 		}
 	}	
-
+	
+//Checks to see if the space the piece is trying to move to is taken
 	public boolean isSpaceTaken(int xValue, int yValue) {
 
 
@@ -304,7 +280,7 @@ if(isMovingRight) {
 		
 		
 	}
-	
+	//checks to see if a Piece in the move space is an enemy
 	public boolean isPieceEnemy(int xValue, int yValue, Checker checker, int turn) {
 		
 		int attackingPiece = checker.getType();
@@ -462,80 +438,11 @@ if(isMovingRight) {
 		
 		
 		}		
-		
-		/*
-		if((board.getBoard()[yOrigin][xOrigin] == 1) && (isMovingDown)) {
-		
-		
-			if(xMove == (xOrigin + 1)) {
-				System.out.println("xMove is valid");
-				isMovingRight = true;
-				if(yMove == (yOrigin + 1)) {
-					System.out.println("yMove is valid");
-					return true;
-				} else {
-					System.out.println("yMove is invalid");
-					return false;
-				}
-			} else if(xMove == (xOrigin - 1)) {
-					System.out.println("xMove is Valid");
-					isMovingRight = false;
-					if(yMove == (yOrigin + 1)) {
-						System.out.println("yMove is valid");
-						return true;
-					}
-					else {
-						System.out.println("yMove is invalid");
-						return false;
-					}
-				} else {
-					System.out.println("xMove is Invalid");
-			}
-		
-		
-		} else {
-			if((!isMovingDown) && (board.getBoard()[yOrigin][xOrigin] == 2)) {
-				
-				
-				if(xMove == (xOrigin + 1)) {
-					System.out.println("xMove is valid");
-					isMovingRight = true;
-					if(yMove == (yOrigin - 1)) {
-						System.out.println("yMove is valid");
-						return true;
-					} else {
-						System.out.println("yMove is invalid");
-						return false;
-					}
-				} else if (xMove == (xOrigin - 1)) {
-					System.out.println("xMove is valid");
-					isMovingRight = false;
-					if(yMove == (yOrigin - 1)) {
-						System.out.println("yMove is valid");
-						return true;
-					} else {
-						System.out.println("yMove is invalid");
-						return false;
-					}
-				} else {
-					System.out.println("xMove is invalid");
-				}
-			} else {
-				if(board.getBoard()[yOrigin][xOrigin] == 1) {
-					System.out.println("You're moving in the wrong direction, idiot!");
-					return false;
-				}
-			}
-			
-				
-			
-		}
-		
-	*/
+
 		return false;
 	}
 
-	
+	//Used to move the Users Pieces
 	public  Move movePiece(int turn) {
 		boolean error = false;
 		String moveInput;
@@ -677,7 +584,7 @@ if(isMovingRight) {
 		return null;
 		
 	}
-
+	//Used to update the board during Undo/Redo
 	public void undoRedoBoard(Move move) {
 		
 		int type = board.getBoard()[move.getyMove()][move.getxMove()];
@@ -687,7 +594,7 @@ if(isMovingRight) {
 	
 	}
 
-
+//used to update the board during Movement
 	public void updateBoard(Move move) {
 		try {
 		int type = board.getBoard()[move.getyOrigin()][move.getxOrigin()];
@@ -699,8 +606,8 @@ if(isMovingRight) {
 		}
 	}
 	
-	//checks to see if the piece exists
 
+//Removes a piece from the game if it has been taken
 	public void removeTakenPiece(int xPiece, int yPiece) {
 		System.out.println("Removing Piece");
 		Checker checker = model.findChecker(xPiece,  yPiece);
@@ -715,11 +622,12 @@ if(isMovingRight) {
 		
 	}
 
+	//outputs the Checkers still in play for testing
 	public void outputPieces() {
 		model.outputCheckers();
 	}
 	
-	
+	//used to change the next turn for two players
 	public int nextTurn(int turn) {
 		if(turn == 1) {
 			turn = 2;
@@ -732,7 +640,7 @@ if(isMovingRight) {
 		return turn;
 	}
 
-
+//checks to see if the Piece can become King
 	 public boolean canBeKing(Checker checker, Move move) {
 		 
 		 if(checker.getType() == 1) {
@@ -759,7 +667,7 @@ if(isMovingRight) {
 			 
 		 }
 		 
-	 
+	 //converts the piece to king
 	 public Checker convertToKing(Checker checker, Move move) {
 		 int type = 0;
 		 if(checker.getType() == 1) {
@@ -778,7 +686,7 @@ if(isMovingRight) {
 		 
 	 }
 		 
-		 
+//used to check the end game winner		 
 	public int hasBlackWon() {
 		if(blackPieces == 0) {
 			return 1;
@@ -788,7 +696,7 @@ if(isMovingRight) {
 		
 		return 0;
 	}
-	 
+	 //used to check all the possible moves for the AI
 	public LinkedList<Move> getPossibleMoves() {
 		AIPossibleMoves.clear();
 		int xOrigin = 0, yOrigin = 0, xMove1 = 0, xMove2 = 0, yMove1 = 0, yMove2 = 0;
@@ -939,7 +847,7 @@ if(isMovingRight) {
 			return AIPossibleMoves;
 			
 		}
-	
+	//used to output AI Possible Moves for testing
 	public void outputPossibleMoves() {
 		System.out.println("###########POSSIBLE MOVES ####################");
 		for(Move move: AIPossibleMoves) {
@@ -948,6 +856,8 @@ if(isMovingRight) {
 		System.out.println("#############################################");
 	}
 	
+	
+	//used to allow the AI to make its move
 	public void AIMakeMove() {
 		
 		Random randomizer = new Random();
@@ -1015,6 +925,7 @@ if(isMovingRight) {
 			model.updateChecker(move, checker, 2);
 			
 			printBoard();
+			model.moves.add(move);
 			return;
 		}
 		model.updateChecker(move, checker, 2);
@@ -1022,11 +933,12 @@ if(isMovingRight) {
 		System.out.println("Origin Piece: " + move.getxOrigin() + "," + move.getyOrigin());
 		System.out.println("Move Position: " + move.getxMove() + "," + move.getyMove());
 		updateBoard(move);
+		model.moves.add(move);
 		printBoard();
 		
 	}
 
-
+//method that clears the console
 	public static void clearScreen() {  
 	    System.out.print("\033[H\033[2J");  
 	    System.out.flush();  
@@ -1034,22 +946,16 @@ if(isMovingRight) {
 	
 	
 	
-	
-public static void main(String args[]) {
+	//main method that runs the game
+public static void startGame(int key) {
+	boolean PvP = true;
 	Game controller = new Game();
 int endGameCheck = 0;
 	int turn = 1;
 	boolean endgame = false;
 	
 	controller.populateModel();
-	//controller.outputPieces();
-//	controller.printBoard();
-//	controller.outputPossibleMoves();
-//	controller.AIMakeMove();
-//	controller.printBoard();
-//	controller.movePiece(turn);
-//	controller.outputPossibleMoves();
-	
+	if(key == 1) {
 	do {
 		try {
 			controller.getPossibleMoves();
@@ -1070,35 +976,34 @@ int endGameCheck = 0;
 			endgame = true;
 		}
 	} while(!endgame);
+	} else if(key == 2) {
+		do {
+			
+			try {
+				
+			controller.movePiece(turn);
+			//controller.outputPieces();
+			//controller.printList();
+	//		controller.moveThroughList();
+			turn =	controller.nextTurn(turn);
+			
+			} catch(NullPointerException e) {
+				System.out.println("Try catch in Main caught this");
+				
+			}
+			
+		endGameCheck = controller.hasBlackWon();
+		
+		if(endGameCheck != 0) {
+			endgame = true;
+			
+		} 
+	}while(!endgame);
+	} else {
+		System.out.println("Error in input");
+	}
 	
-	
-//	do {
-//	
-//			try {
-//				
-//			//controller.movePiece(turn);
-//			//controller.outputPieces();
-//			//controller.printList();
-//	//		controller.moveThroughList();
-//			//turn =	controller.nextTurn(turn);
-//			
-//			} catch(NullPointerException e) {
-//				System.out.println("Try catch in Main caught this");
-//				
-//			}
-//			
-//		endGameCheck = controller.hasBlackWon();
-//		
-//		if(endGameCheck != 0) {
-//			endgame = true;
-//			
-//		} 
-//	}while(!endgame);
-	
-	
-	controller.outputPieces();
-	controller.printList();
-	
+
 	
 }
 
