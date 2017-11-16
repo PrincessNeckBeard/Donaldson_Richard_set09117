@@ -74,7 +74,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		if (choice == 1) {
 			
 			i = (model.moves.size() - 1); 
-			System.out.println("i is: " + i);
+		//	System.out.println("i is: " + i);
 			if(i == 0) {
 				System.out.println("There are no more moves to undo");
 			}
@@ -84,13 +84,13 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 			model.copy.add(test);
 			model.moves.remove(test);
 			 System.out.println("Move has been removed ");
-			model.printList();
+		//	model.printList();
 			
 			//Redo Move
 		} else if (choice == 2) {
 
 			j = (model.copy.size() - 1);
-			System.out.println("J is: " + j );
+			//System.out.println("J is: " + j );
 			if(j == -1) {
 				System.out.println("There are no moves to copy");
 				
@@ -104,7 +104,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 			test = model.moves.get(i);
 			redoBoard(test);
 			System.out.println("move added");
-			model.printList();
+		//	model.printList();
 			}
 		} 
 		}catch(InputMismatchException e) {
@@ -996,7 +996,7 @@ int endGameCheck = 0;
 			try {
 				int asda = input.nextInt();
 				
-				System.out.println(asda);
+				
 
 				if(asda == 2) {
 					controller.moveThroughList();
@@ -1024,8 +1024,8 @@ int endGameCheck = 0;
 			try {
 				controller.printBoard();
 			controller.movePiece(turn);
-			controller.outputPieces();
-			controller.printList();
+		//	controller.outputPieces();
+		//	controller.printList();
 	//		controller.moveThroughList();
 			turn =	controller.nextTurn(turn);
 			
@@ -1035,7 +1035,7 @@ int endGameCheck = 0;
 			try {
 				int asda = input.nextInt();
 				
-				System.out.println(asda);
+				
 
 				if(asda == 2) {
 					controller.moveThroughList();
