@@ -120,6 +120,40 @@ public class Model {
 		
 	}
 	
+	public void undoChecker(Move move, Checker checker) {
+		int i = 0;
+		//if it's Blacks Turn
+				if((checker.getType() == 1) || (checker.getType() == 3)) {
+					for(Checker c: blackPieces) {
+						if((checker.getCurrentXPosition() == c.getCurrentXPosition()) && (checker.getCurrentYPosition() == c.getCurrentYPosition())) {
+							checker.setCurrentXPosition(move.getxOrigin());
+							checker.setCurrentYPosision(move.getyOrigin());
+						blackPieces.set(i, checker);
+						}
+								i++;
+					}
+					
+					//If it's Whites turn
+				} else if ((checker.getType() == 2) || (checker.getType() == 4)) {
+					for(Checker c: whitePieces) {
+					//	System.out.println("CheckerXPos " + c.getCurrentXPosition());
+						if((checker.getCurrentXPosition() == c.getCurrentXPosition()) && (checker.getCurrentYPosition() == c.getCurrentYPosition())) {
+							checker.setCurrentXPosition(move.getxOrigin());
+							checker.setCurrentYPosision(move.getyOrigin());
+						whitePieces.set(i, checker);
+						}
+								i++;
+					} 
+						
+					} else {
+						System.out.println("Checker not found");
+				}
+				
+				
+	}
+	
+	
+	
 	//outputs the list of checkers still in play for testing purposes
 	public void outputCheckers() {
 		System.out.println("Black Pieces");
@@ -137,9 +171,12 @@ public class Model {
 	
 	//Used to output the list of moves that have been played to the console for testing
 	public void printList() {
+		System.out.println("Main Moves");
 		for(Move m: moves) {
+			
 			System.out.println(m.toString());
 		}
+		System.out.println("Copy Moves");
 		for(Move m: copy) {
 			System.out.println(m.toString());
 		}

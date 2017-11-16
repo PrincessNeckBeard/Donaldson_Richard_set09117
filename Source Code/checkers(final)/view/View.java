@@ -21,6 +21,7 @@ public class View {
 		System.out.println("###              PRESS ANY KEY TO CONTINUE            ###");
 		
 		
+		@SuppressWarnings("resource")
 		Scanner keyboard = new Scanner(System.in);
 		key = keyboard.next();
 		return key;
@@ -35,6 +36,7 @@ public class View {
 		System.out.println("1. \tPlayer Vs AI");
 		System.out.println("2. \tPlayer Vs Player");
 
+		@SuppressWarnings("resource")
 		Scanner keyboard = new Scanner(System.in);
 		int key = keyboard.nextInt();
 		Game.startGame(key);
