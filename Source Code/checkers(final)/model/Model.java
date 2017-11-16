@@ -152,6 +152,40 @@ public class Model {
 				
 	}
 	
+	public void redoChecker(Move move, Checker checker) {
+		int i = 0;
+		
+		
+		//if it's Blacks Turn
+		if((checker.getType() == 1) || (checker.getType() == 3)) {
+			for(Checker c: blackPieces) {
+				if((checker.getCurrentXPosition() == c.getCurrentXPosition()) && (checker.getCurrentYPosition() == c.getCurrentYPosition())) {
+					checker.setCurrentXPosition(move.getxMove());
+					checker.setCurrentYPosision(move.getyMove());
+				blackPieces.set(i, checker);
+				}
+						i++;
+			}
+			
+			//If it's Whites turn
+		} else if ((checker.getType() == 2 ) || (checker.getType() == 4) ) {
+			for(Checker c: whitePieces) {
+			//	System.out.println("CheckerXPos " + c.getCurrentXPosition());
+				if((checker.getCurrentXPosition() == c.getCurrentXPosition()) && (checker.getCurrentYPosition() == c.getCurrentYPosition())) {
+					checker.setCurrentXPosition(move.getxMove());
+					checker.setCurrentYPosision(move.getyMove());
+				whitePieces.set(i, checker);
+				}
+						i++;
+			} 
+				
+			} else {
+				System.out.println("Checker not found");
+		}
+		
+		
+	}
+	
 	
 	
 	//outputs the list of checkers still in play for testing purposes

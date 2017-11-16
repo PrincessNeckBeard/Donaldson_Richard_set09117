@@ -80,7 +80,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 			}
 			
 			test = model.moves.get(i);
-			undoRedoBoard(test);
+			undoBoard(test);
 			model.copy.add(test);
 			model.moves.remove(test);
 			 System.out.println("Move has been removed ");
@@ -102,7 +102,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 			i = (model.moves.size() - 1);
 			//System.out.println("i is: " + i);
 			test = model.moves.get(i);
-			updateBoard(test); 
+			redoBoard(test);
 			System.out.println("move added");
 			model.printList();
 			}
@@ -592,7 +592,7 @@ if(isMoveValid(convertedXOrigin, yOrigin, convertedXMove, yMove, isMovingRight, 
 		
 	}
 	//Used to update the board during Undo/Redo
-	public void undoRedoBoard(Move move) {
+	public void undoBoard(Move move) {
 		
 		int type = board.getBoard()[move.getyMove()][move.getxMove()];
 		
@@ -603,6 +603,17 @@ if(isMoveValid(convertedXOrigin, yOrigin, convertedXMove, yMove, isMovingRight, 
 		
 	
 	}
+	
+	public void redoBoard(Move move) {
+		int type = board.getBoard()[move.getyOrigin()][move.getxOrigin()];
+		int xValue = move.getxOrigin();
+		int yValue = move.getyOrigin();
+		board.getBoard()[move.getyOrigin()][move.getxOrigin()] = 0;
+		board.getBoard()[move.getyMove()][move.getxMove()] = type;
+		Checker checker = model.findChecker(xValue, yValue);
+		model.redoChecker(move, checker);
+	}
+	
 
 //used to update the board during Movement
 	public void updateBoard(Move move) {
@@ -952,7 +963,7 @@ if(isMoveValid(convertedXOrigin, yOrigin, convertedXMove, yMove, isMovingRight, 
 	}
 
 //method that clears the console
-	public static void clearScreen() {  
+	public void clearScreen() {  
 	    System.out.print("\033[H\033[2J");  
 	    System.out.flush();  
 	   } 
@@ -961,7 +972,9 @@ if(isMoveValid(convertedXOrigin, yOrigin, convertedXMove, yMove, isMovingRight, 
 	
 	//main method that runs the game
 public static void startGame(int key) {
+	
 	Game controller = new Game();
+	
 int endGameCheck = 0;
 	int turn = 2;
 	boolean endgame = false;
@@ -1011,8 +1024,8 @@ int endGameCheck = 0;
 			try {
 				controller.printBoard();
 			controller.movePiece(turn);
-			//controller.outputPieces();
-	//		controller.printList();
+			controller.outputPieces();
+			controller.printList();
 	//		controller.moveThroughList();
 			turn =	controller.nextTurn(turn);
 			
