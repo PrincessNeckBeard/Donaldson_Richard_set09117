@@ -135,6 +135,17 @@ public class Model {
 		
 	}
 	
+	//Used to output the list of moves that have been played to the console for testing
+	public void printList() {
+		for(Move m: moves) {
+			System.out.println(m.toString());
+		}
+		for(Move m: copy) {
+			System.out.println(m.toString());
+		}
+		
+	}
+	
 
 
 

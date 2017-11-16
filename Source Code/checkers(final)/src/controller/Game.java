@@ -48,16 +48,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 		System.out.println();
 	}
 	
-	//Used to output the list of moves that have been played to the console for testing
-	public void printList() {
-		for(Move m: model.moves) {
-			System.out.println(m.toString());
-		}
-		for(Move m: model.copy) {
-			System.out.println(m.toString());
-		}
-		
-	}
+
 	//used to move through the list of moves that have been played
 	//This is the Undo/Redo feature of the game
 	public void moveThroughList() {
@@ -90,7 +81,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 			model.copy.add(test);
 			model.moves.remove(test);
 			 System.out.println("Undo'd move ");
-			printList();
+			model.printList();
 			
 			//Redo Move
 		} else if (choice == 2) {
@@ -110,7 +101,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 			test = model.moves.get(i);
 			updateBoard(test); 
 			System.out.println("move redided");
-			printList();
+			model.printList();
 			}
 		} 
 		
@@ -158,7 +149,7 @@ String xAxis[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
 	public static Boolean validateInput(String input) {
 		String xInput = input.substring(0,1);
 
-		int yInput = Integer.parseInt(input.substring(1,2));
+	
 
 		
 		boolean xIsLetter = Character.isLetter(xInput.charAt(0));
@@ -948,7 +939,6 @@ if(isMovingRight) {
 	
 	//main method that runs the game
 public static void startGame(int key) {
-	boolean PvP = true;
 	Game controller = new Game();
 int endGameCheck = 0;
 	int turn = 1;
@@ -1004,7 +994,7 @@ int endGameCheck = 0;
 	}
 	
 
-	
+
 }
 
 	
