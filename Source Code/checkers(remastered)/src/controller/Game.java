@@ -802,12 +802,13 @@ if(isMovingRight) {
 				xMove1 = (checker.getCurrentXPosition() - 1);
 				xMove2 = (checker.getCurrentXPosition() + 1);
 				yMove1 = (checker.getCurrentYPosition() - 1);
+				yMove2 = (checker.getCurrentYPosition() + 1);
 				type = checker.getType();
 				switch(type) {
 				case 2:
 
 					if((xMove1 < 0) || (yMove1 <0)) {
-						//continue;
+					//	continue;
 					} else {
 					if(isMoveValid(xOrigin,yOrigin, xMove1, yMove1, false, false )) {
 						if(!isSpaceTaken(xMove1,yMove1)) {
@@ -826,7 +827,7 @@ if(isMovingRight) {
 					}
                             
 					if((xMove2 > 7) || (yMove1 < 0)) {
-						//continue;
+					//	continue;
 					} else {
 				
 					if(isMoveValid(xOrigin,yOrigin, xMove2, yMove1, true, false )) {
@@ -850,7 +851,7 @@ if(isMovingRight) {
 				case 4:
 					//Moving up and left    isMovingRight,IsMovingDown
 					if((xMove1 <0) || (yMove1 < 0)) {
-						continue;
+						//continue;
 					} else {
 					if(isMoveValid(xOrigin,yOrigin, xMove1, yMove1, false, false )) {
 						if(!isSpaceTaken(xMove1,yMove1)) {
@@ -869,7 +870,7 @@ if(isMovingRight) {
 					}
 				
 				if((xMove2 > 7) || (yMove1 < 0)) {
-					continue;
+					//continue;
 				} else {
 					//moving up and right
 					if(isMoveValid(xOrigin,yOrigin, xMove2, yMove1, true, false )) {
@@ -889,7 +890,7 @@ if(isMovingRight) {
 				}
 				
 				if((xMove1 < 0) || (yMove2 > 7)) {
-					continue;
+				//	continue;
 				} else {
 					//moving down and left isMovingRight,IsMovingDown
 					if(isMoveValid(xOrigin,yOrigin, xMove1, yMove2, false, true )) {
@@ -909,7 +910,7 @@ if(isMovingRight) {
 				}
 				
 				if((xMove2 > 7) || (yMove2 > 7)) {
-					continue;
+					//continue;
 				} else {
 				
 					//moving down and right isMovingRight,IsMovingDown
